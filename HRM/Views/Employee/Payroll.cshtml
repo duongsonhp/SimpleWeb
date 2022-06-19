@@ -1,0 +1,107 @@
+﻿
+@{
+    ViewBag.Title = "Payroll";
+}
+
+@model List<DataAccess.employee>
+@using DataAccess;
+
+<div class="contain-toolbar d-flex justify-content-between">
+    @*<div class="contain-filter d-flex justify-content-center">*@
+    <div class="dropdown select-employee">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="drop-employee" data-bs-toggle="dropdown" aria-expanded="false">
+            Nhân viên
+        </button>
+        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="drop-employee">
+            @foreach (employee item in Model)
+            {
+                <div class="dropdown-item">
+                    <input class="form-check-input" type="checkbox" value="" id="emp-@item.id">
+                    <label class="form-check-label" for="emp-@item.id">
+                        @item.id - @item.last_name @item.first_name
+                    </label>
+                </div>
+            }
+        </div>
+    </div>
+    <div>
+        <span>Kì lương</span>
+        <input type="date" id="calendar-payroll-period" name="calendar-payroll-period">
+    </div>
+    <div>
+        <span>Kì lương trước</span>
+        <input type="date" id="calendar-pre-payroll-period" name="calendar-pre-payroll-period">
+    </div>
+    <div class="contain-action">
+        <button type="button" class="btn btn-dark" id="btn-calculate-payroll">Tính lương</button>
+    </div>
+    @*</div>*@
+</div>
+<div class="table-payroll">
+    <table class="table table-bordered hide">
+        <thead>
+            <tr class="employee-info">
+                <th colspan="2"></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="payroll-method">
+                <td>Hình thức trả lương</td>
+                <td></td>
+            </tr>
+            <tr class="payroll-period">
+                <td>Kì trả lương</td>
+                <td></td>
+            </tr>
+            <tr class="require-way">
+                <td>Lương thỏa thuận</td>
+                <td></td>
+            </tr>
+            <tr class="educate-bonus">
+                <td>Phụ cấp đào tạo</td>
+                <td></td>
+            </tr>
+            <tr class="area-wage">
+                <td>Lương vùng</td>
+                <td></td>
+            </tr>
+            <tr class="not-allowed-absence hide by-time">
+                <td>Nghỉ không phép</td>
+                <td></td>
+            </tr>
+            <tr class="normal-extra hide by-time">
+                <td>Làm thêm vào ngày thường</td>
+                <td></td>
+            </tr>
+            <tr class="weekend-extra hide by-time">
+                <td>Làm thêm vào ngày cuối tuần</td>
+                <td></td>
+            </tr>
+            <tr class="holiday-extra hide by-time">
+                <td>Làm thêm vào ngày lễ tết</td>
+                <td></td>
+            </tr>
+            <tr class="quantity-A hide by-product">
+                <td>Sản phẩm A</td>
+                <td><span class="quantity"></span> * <span class="price"></span> = <span class="result"></span></td>
+            </tr>
+            <tr class="quantity-B hide by-product">
+                <td>Sản phẩm B</td>
+                <td><span class="quantity"></span> * <span class="price"></span> = <span class="result"></span></td>
+            </tr>
+            <tr class="restrict hide by-restrict">
+                <td>Khoán</td>
+                <td></td>
+            </tr>
+            <tr class="restrict-complete hide by-restrict">
+                <td>Sản phẩm khoán hoàn thành</td>
+                <td></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<script src="~/Scripts/Tools/ValidateInput.js"></script>
+<script src="~/Scripts/Tools/ProccessDate.js"></script>
+<script src="~/Scripts/Tools/GenRandom.js"></script>
+<script src="~/Scripts/Tools/GetValueOfCode.js"></script>
+<script src="~/Scripts/Employee/payroll.js"></script>

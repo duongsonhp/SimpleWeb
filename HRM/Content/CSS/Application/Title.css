@@ -1,0 +1,12 @@
+﻿.contain-application {
+    background-image: url('/Store/Pics/background-company-blur.jpg')
+}
+
+.contain-application {
+    padding: 20px 30px
+}
+
+.selected-row {
+    background-color: #1981d1;
+    color: white
+}

@@ -1,0 +1,90 @@
+﻿
+@{
+    ViewBag.Title = "Title";
+}
+@model List<Business.MergedEntity.TitleRecruit>
+<link rel="stylesheet" href="~/Content/CSS/Application/Title.css" />
+<div class="contain-application">
+    <form>
+        <div class="d-flex justify-content-between row-emp">
+            <div>
+                <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="drop-department" data-bs-toggle="dropdown" aria-expanded="false">
+                        Phòng ban
+                    </button>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="drop-department">
+                        <div class="dropdown-item"></div>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="drop-title" data-bs-toggle="dropdown" aria-expanded="false">
+                        Chức danh
+                    </button>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="drop-title">
+                        <div class="dropdown-item"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="d-flex justify-content-between row-emp">
+            <div>
+                <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle drop-employee" type="button" id="drop-recruiter" data-bs-toggle="dropdown" aria-expanded="false">
+                        Người tuyển dụng
+                    </button>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="drop-recruiter">
+                        <div class="dropdown-item"></div>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <div class="d-flex justify-content-start">
+                    <div class="label">
+                        <label style="color:black">Số suất</label>
+                    </div>
+                    <div>
+                        <input type="text" class="form-control" id="textbox-slot" aria-describedby="emailHelp" placeholder="VD: 2">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button type="button" class="btn btn-primary" id="btn-save-title">Gửi</button>
+
+        <table class="table" id="table-title-recruit">
+            <thead>
+                <tr>
+                    <th scope="col">Chức danh</th>
+                    <th scope="col">Phòng ban</th>
+                    <th scope="col">Người tuyển dụng</th>
+                    <th scope="col">Số suất</th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <th scope="row" id="td-tit-@item.title_id">@item.title</th>
+                        <td id="td-dept-@item.department_id">@item.department</td>
+                        <td id="td-recruiter-@item.recruiter_id">@item.recruiter_id - @item.recruiter_name</td>
+                        <td>@item.slot</td>
+                        <td scope="col">
+                            <div class="btn-remove-title-recruit">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
+                                    <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z" />
+                                </svg>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </form>
+</div>
+<script src="~/Scripts/Tools/ValidateInput.js"></script>
+<script src="~/Scripts/Tools/ProccessDate.js"></script>
+<script src="~/Scripts/Tools/GenRandom.js"></script>
+<script src="~/Scripts/Tools/GetValueOfCode.js"></script>
+<script src="~/Scripts/Application/application.js"></script>

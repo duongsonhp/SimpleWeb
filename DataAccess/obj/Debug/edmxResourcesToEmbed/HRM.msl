@@ -1,0 +1,392 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="hrmModelStoreContainer" CdmEntityContainer="hrmEntities1">
+    <EntitySetMapping Name="absences">
+      <EntityTypeMapping TypeName="hrmModel.absence">
+        <MappingFragment StoreEntitySet="absence">
+          <ScalarProperty Name="employee_id" ColumnName="employee_id" />
+          <ScalarProperty Name="date" ColumnName="date" />
+          <ScalarProperty Name="is_absence" ColumnName="is_absence" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="absence_request">
+      <EntityTypeMapping TypeName="hrmModel.absence_request">
+        <MappingFragment StoreEntitySet="absence_request">
+          <ScalarProperty Name="employee_id" ColumnName="employee_id" />
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="ask_date" ColumnName="ask_date" />
+          <ScalarProperty Name="start_date" ColumnName="start_date" />
+          <ScalarProperty Name="end_date" ColumnName="end_date" />
+          <ScalarProperty Name="timeoff_type_id" ColumnName="timeoff_type_id" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="approve_man_id" ColumnName="approve_man_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="accruals">
+      <EntityTypeMapping TypeName="hrmModel.accrual">
+        <MappingFragment StoreEntitySet="accrual">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="plan_name" ColumnName="plan_name" />
+          <ScalarProperty Name="timeoff_type_id" ColumnName="timeoff_type_id" />
+          <ScalarProperty Name="start_date" ColumnName="start_date" />
+          <ScalarProperty Name="enforced_date" ColumnName="enforced_date" />
+          <ScalarProperty Name="amount_date" ColumnName="amount_date" />
+          <ScalarProperty Name="period" ColumnName="period" />
+          <ScalarProperty Name="unit" ColumnName="unit" />
+          <ScalarProperty Name="limit" ColumnName="limit" />
+          <ScalarProperty Name="proccess_code_for_remain_days" ColumnName="proccess_code_for_remain_days" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="applicants">
+      <EntityTypeMapping TypeName="hrmModel.applicant">
+        <MappingFragment StoreEntitySet="applicant">
+          <ScalarProperty Name="first_name" ColumnName="first_name" />
+          <ScalarProperty Name="last_name" ColumnName="last_name" />
+          <ScalarProperty Name="department_id" ColumnName="department_id" />
+          <ScalarProperty Name="title_id" ColumnName="title_id" />
+          <ScalarProperty Name="email" ColumnName="email" />
+          <ScalarProperty Name="phone" ColumnName="phone" />
+          <ScalarProperty Name="degree_id" ColumnName="degree_id" />
+          <ScalarProperty Name="college" ColumnName="college" />
+          <ScalarProperty Name="require_wage" ColumnName="require_wage" />
+          <ScalarProperty Name="interview_date" ColumnName="interview_date" />
+          <ScalarProperty Name="interviewer_id" ColumnName="interviewer_id" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="ultimate_wage" ColumnName="ultimate_wage" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="contracts">
+      <EntityTypeMapping TypeName="hrmModel.contract">
+        <MappingFragment StoreEntitySet="contract">
+          <ScalarProperty Name="payroll_type" ColumnName="payroll_type" />
+          <ScalarProperty Name="period_type" ColumnName="period_type" />
+          <ScalarProperty Name="require_educate" ColumnName="require_educate" />
+          <ScalarProperty Name="restrict_product_number" ColumnName="restrict_product_number" />
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="employee_id" ColumnName="employee_id" />
+          <ScalarProperty Name="start_date" ColumnName="start_date" />
+          <ScalarProperty Name="end_date" ColumnName="end_date" />
+          <ScalarProperty Name="standard_work_time_for_employee_id" ColumnName="standard_work_time_for_employee_id" />
+          <ScalarProperty Name="wage" ColumnName="wage" />
+          <ScalarProperty Name="unit" ColumnName="unit" />
+          <ScalarProperty Name="status" ColumnName="status" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="degrees">
+      <EntityTypeMapping TypeName="hrmModel.degree">
+        <MappingFragment StoreEntitySet="degree">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="degree_name" ColumnName="degree_name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="departments">
+      <EntityTypeMapping TypeName="hrmModel.department">
+        <MappingFragment StoreEntitySet="department">
+          <ScalarProperty Name="department_id" ColumnName="department_id" />
+          <ScalarProperty Name="department_name" ColumnName="department_name" />
+          <ScalarProperty Name="manager_id" ColumnName="manager_id" />
+          <ScalarProperty Name="parent_id" ColumnName="parent_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="employees">
+      <EntityTypeMapping TypeName="hrmModel.employee">
+        <MappingFragment StoreEntitySet="employee">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="first_name" ColumnName="first_name" />
+          <ScalarProperty Name="last_name" ColumnName="last_name" />
+          <ScalarProperty Name="title_id" ColumnName="title_id" />
+          <ScalarProperty Name="phone" ColumnName="phone" />
+          <ScalarProperty Name="department_id" ColumnName="department_id" />
+          <ScalarProperty Name="manager_id" ColumnName="manager_id" />
+          <ScalarProperty Name="timeoff_manager_id" ColumnName="timeoff_manager_id" />
+          <ScalarProperty Name="expense_manager_id" ColumnName="expense_manager_id" />
+          <ScalarProperty Name="address" ColumnName="address" />
+          <ScalarProperty Name="email" ColumnName="email" />
+          <ScalarProperty Name="distance_from_home" ColumnName="distance_from_home" />
+          <ScalarProperty Name="identity_citizen_id" ColumnName="identity_citizen_id" />
+          <ScalarProperty Name="gender" ColumnName="gender" />
+          <ScalarProperty Name="birthday" ColumnName="birthday" />
+          <ScalarProperty Name="born_place" ColumnName="born_place" />
+          <ScalarProperty Name="martial_status_id" ColumnName="martial_status_id" />
+          <ScalarProperty Name="number_of_children" ColumnName="number_of_children" />
+          <ScalarProperty Name="emergency_contact_man" ColumnName="emergency_contact_man" />
+          <ScalarProperty Name="emergency_phone" ColumnName="emergency_phone" />
+          <ScalarProperty Name="degree_id" ColumnName="degree_id" />
+          <ScalarProperty Name="major" ColumnName="major" />
+          <ScalarProperty Name="college" ColumnName="college" />
+          <ScalarProperty Name="bank_account" ColumnName="bank_account" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="expenses">
+      <EntityTypeMapping TypeName="hrmModel.expense">
+        <MappingFragment StoreEntitySet="expense">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="product_id" ColumnName="product_id" />
+          <ScalarProperty Name="price_per_item" ColumnName="price_per_item" />
+          <ScalarProperty Name="unit" ColumnName="unit" />
+          <ScalarProperty Name="quantity" ColumnName="quantity" />
+          <ScalarProperty Name="total_value" ColumnName="total_value" />
+          <ScalarProperty Name="expense_date" ColumnName="expense_date" />
+          <ScalarProperty Name="employee_id" ColumnName="employee_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="expense_report">
+      <EntityTypeMapping TypeName="hrmModel.expense_report">
+        <MappingFragment StoreEntitySet="expense_report">
+          <ScalarProperty Name="report_id" ColumnName="report_id" />
+          <ScalarProperty Name="report_name" ColumnName="report_name" />
+          <ScalarProperty Name="approve_man_id" ColumnName="approve_man_id" />
+          <ScalarProperty Name="pay_man_id" ColumnName="pay_man_id" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="employee_id" ColumnName="employee_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="experience_education">
+      <EntityTypeMapping TypeName="hrmModel.experience_education">
+        <MappingFragment StoreEntitySet="experience_education">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="organization_name" ColumnName="organization_name" />
+          <ScalarProperty Name="project_or_description" ColumnName="project_or_description" />
+          <ScalarProperty Name="skill" ColumnName="skill" />
+          <ScalarProperty Name="start_date" ColumnName="start_date" />
+          <ScalarProperty Name="end_date" ColumnName="end_date" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="material_status">
+      <EntityTypeMapping TypeName="hrmModel.material_status">
+        <MappingFragment StoreEntitySet="material_status">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="status_name" ColumnName="status_name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="plans">
+      <EntityTypeMapping TypeName="hrmModel.plan">
+        <MappingFragment StoreEntitySet="plan">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="plan_name" ColumnName="plan_name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="plan_activities">
+      <EntityTypeMapping TypeName="hrmModel.plan_activities">
+        <MappingFragment StoreEntitySet="plan_activities">
+          <ScalarProperty Name="plan_id" ColumnName="plan_id" />
+          <ScalarProperty Name="job_name" ColumnName="job_name" />
+          <ScalarProperty Name="conduct_role_id" ColumnName="conduct_role_id" />
+          <ScalarProperty Name="deadline" ColumnName="deadline" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="plan_for_employee">
+      <EntityTypeMapping TypeName="hrmModel.plan_for_employee">
+        <MappingFragment StoreEntitySet="plan_for_employee">
+          <ScalarProperty Name="plan_id" ColumnName="plan_id" />
+          <ScalarProperty Name="employee_id" ColumnName="employee_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="products">
+      <EntityTypeMapping TypeName="hrmModel.product">
+        <MappingFragment StoreEntitySet="product">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="product_name" ColumnName="product_name" />
+          <ScalarProperty Name="proposed_price" ColumnName="proposed_price" />
+          <ScalarProperty Name="unit_1" ColumnName="unit_1" />
+          <ScalarProperty Name="sale_price" ColumnName="sale_price" />
+          <ScalarProperty Name="unit_2" ColumnName="unit_2" />
+          <ScalarProperty Name="prefix_code" ColumnName="prefix_code" />
+          <ScalarProperty Name="vendor_tax" ColumnName="vendor_tax" />
+          <ScalarProperty Name="customer_tax" ColumnName="customer_tax" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="requirements_for_job">
+      <EntityTypeMapping TypeName="hrmModel.requirements_for_job">
+        <MappingFragment StoreEntitySet="requirements_for_job">
+          <ScalarProperty Name="title_id" ColumnName="title_id" />
+          <ScalarProperty Name="department_id" ColumnName="department_id" />
+          <ScalarProperty Name="requires" ColumnName="requires" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="roles">
+      <EntityTypeMapping TypeName="hrmModel.role">
+        <MappingFragment StoreEntitySet="role">
+          <ScalarProperty Name="role_id" ColumnName="role_id" />
+          <ScalarProperty Name="role_name" ColumnName="role_name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="skills">
+      <EntityTypeMapping TypeName="hrmModel.skill">
+        <MappingFragment StoreEntitySet="skill">
+          <ScalarProperty Name="skill_name" ColumnName="skill_name" />
+          <ScalarProperty Name="level" ColumnName="level" />
+          <ScalarProperty Name="skill_type_id" ColumnName="skill_type_id" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="skill_of_employee">
+      <EntityTypeMapping TypeName="hrmModel.skill_of_employee">
+        <MappingFragment StoreEntitySet="skill_of_employee">
+          <ScalarProperty Name="employee_id" ColumnName="employee_id" />
+          <ScalarProperty Name="skill_level_id" ColumnName="skill_level_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="skill_type">
+      <EntityTypeMapping TypeName="hrmModel.skill_type">
+        <MappingFragment StoreEntitySet="skill_type">
+          <ScalarProperty Name="skill_type_id" ColumnName="skill_type_id" />
+          <ScalarProperty Name="skill_type_name" ColumnName="skill_type_name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="standard_work_time">
+      <EntityTypeMapping TypeName="hrmModel.standard_work_time">
+        <MappingFragment StoreEntitySet="standard_work_time">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="amount_time" ColumnName="amount_time" />
+          <ScalarProperty Name="unit" ColumnName="unit" />
+          <ScalarProperty Name="period" ColumnName="period" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="standard_work_time_for_employee">
+      <EntityTypeMapping TypeName="hrmModel.standard_work_time_for_employee">
+        <MappingFragment StoreEntitySet="standard_work_time_for_employee">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="standard_work_time_id" ColumnName="standard_work_time_id" />
+          <ScalarProperty Name="employee_id" ColumnName="employee_id" />
+          <ScalarProperty Name="month" ColumnName="month" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="time_off">
+      <EntityTypeMapping TypeName="hrmModel.time_off">
+        <MappingFragment StoreEntitySet="time_off">
+          <ScalarProperty Name="employee_id" ColumnName="employee_id" />
+          <ScalarProperty Name="month" ColumnName="month" />
+          <ScalarProperty Name="year" ColumnName="year" />
+          <ScalarProperty Name="timeoff_type_id" ColumnName="timeoff_type_id" />
+          <ScalarProperty Name="number" ColumnName="number" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="timeoff_type">
+      <EntityTypeMapping TypeName="hrmModel.timeoff_type">
+        <MappingFragment StoreEntitySet="timeoff_type">
+          <ScalarProperty Name="timeoff_type_id" ColumnName="timeoff_type_id" />
+          <ScalarProperty Name="timeoff_type_name" ColumnName="timeoff_type_name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="titles">
+      <EntityTypeMapping TypeName="hrmModel.title">
+        <MappingFragment StoreEntitySet="title">
+          <ScalarProperty Name="title_id" ColumnName="title_id" />
+          <ScalarProperty Name="title_name" ColumnName="title_name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="title_recruit">
+      <EntityTypeMapping TypeName="hrmModel.title_recruit">
+        <MappingFragment StoreEntitySet="title_recruit">
+          <ScalarProperty Name="title_id" ColumnName="title_id" />
+          <ScalarProperty Name="slot" ColumnName="slot" />
+          <ScalarProperty Name="department_id" ColumnName="department_id" />
+          <ScalarProperty Name="recruiter" ColumnName="recruiter" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="work_time">
+      <EntityTypeMapping TypeName="hrmModel.work_time">
+        <MappingFragment StoreEntitySet="work_time">
+          <ScalarProperty Name="employee_id" ColumnName="employee_id" />
+          <ScalarProperty Name="month" ColumnName="month" />
+          <ScalarProperty Name="year" ColumnName="year" />
+          <ScalarProperty Name="extra_work_time" ColumnName="extra_work_time" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="expenses_in_report">
+      <EntityTypeMapping TypeName="hrmModel.expenses_in_report">
+        <MappingFragment StoreEntitySet="expenses_in_report">
+          <ScalarProperty Name="expense_id" ColumnName="expense_id" />
+          <ScalarProperty Name="report_id" ColumnName="report_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="n_absence">
+      <EntityTypeMapping TypeName="hrmModel.n_absence">
+        <MappingFragment StoreEntitySet="n_absence">
+          <ScalarProperty Name="special_reason" ColumnName="special_reason" />
+          <ScalarProperty Name="is_allowed" ColumnName="is_allowed" />
+          <ScalarProperty Name="absent_date" ColumnName="absent_date" />
+          <ScalarProperty Name="employee_id" ColumnName="employee_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="n_extra_work_time">
+      <EntityTypeMapping TypeName="hrmModel.n_extra_work_time">
+        <MappingFragment StoreEntitySet="n_extra_work_time">
+          <ScalarProperty Name="to" ColumnName="to" />
+          <ScalarProperty Name="from" ColumnName="from" />
+          <ScalarProperty Name="work_date" ColumnName="work_date" />
+          <ScalarProperty Name="employee_id" ColumnName="employee_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="n_number_product">
+      <EntityTypeMapping TypeName="hrmModel.n_number_product">
+        <MappingFragment StoreEntitySet="n_number_product">
+          <ScalarProperty Name="employee_id" ColumnName="employee_id" />
+          <ScalarProperty Name="product_id" ColumnName="product_id" />
+          <ScalarProperty Name="number_product" ColumnName="number_product" />
+          <ScalarProperty Name="end_date" ColumnName="end_date" />
+          <ScalarProperty Name="start_date" ColumnName="start_date" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="n_product">
+      <EntityTypeMapping TypeName="hrmModel.n_product">
+        <MappingFragment StoreEntitySet="n_product">
+          <ScalarProperty Name="value" ColumnName="value" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="n_restrict_product">
+      <EntityTypeMapping TypeName="hrmModel.n_restrict_product">
+        <MappingFragment StoreEntitySet="n_restrict_product">
+          <ScalarProperty Name="number_product" ColumnName="number_product" />
+          <ScalarProperty Name="employee_id" ColumnName="employee_id" />
+          <ScalarProperty Name="contract_id" ColumnName="contract_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="n_holiday">
+      <EntityTypeMapping TypeName="hrmModel.n_holiday">
+        <MappingFragment StoreEntitySet="n_holiday">
+          <ScalarProperty Name="holiday_name" ColumnName="holiday_name" />
+          <ScalarProperty Name="day" ColumnName="day" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

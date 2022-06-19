@@ -1,0 +1,38 @@
+﻿@{
+    ViewBag.Title = "ConfigExpense";
+}
+
+<div class="contain-toolbar d-flex justify-content-between">
+    <div class="contain-action">
+        <button type="button" class="btn btn-dark" id="btn-create-expense">Thêm hàng</button>
+    </div>
+</div>
+<div class="contain-table">
+    <table class="table" id="table-expense">
+        <thead>
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Sản phẩm</th>
+                <th scope="col">Số lượng</th>
+                <th scope="col">Đơn vị</th>
+                <th scope="col">Ngày chi tiêu</th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+            @*<tr>
+                    <th scope="row">001</th>
+                    <td>40</td>
+                    <td>Giờ</td>
+                    <td>Tuần</td>
+                </tr>*@
+        </tbody>
+    </table>
+</div>
+
+@*<link href="~/Scripts/plugin/bootstrap3-editable-1.5.1/bootstrap3-editable/css/bootstrap-editable.css" rel="stylesheet" />
+    <script src="~/Scripts/plugin/bootstrap3-editable-1.5.1/bootstrap3-editable/js/bootstrap-editable.js"></script>*@
+<script src="~/Scripts/Tools/ValidateInput.js"></script>
+<script src="~/Scripts/Tools/ProccessDate.js"></script>
+<script src="~/Scripts/Tools/GenRandom.js"></script>
+<script src="~/Scripts/Expense/expense.js"></script>

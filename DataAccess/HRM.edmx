@@ -1,0 +1,1256 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="hrmModel.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="8.0" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="absence">
+          <Key>
+            <PropertyRef Name="employee_id" />
+            <PropertyRef Name="date" />
+          </Key>
+          <Property Name="employee_id" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="date" Type="date" Nullable="false" />
+          <Property Name="is_absence" Type="bit" />
+        </EntityType>
+        <EntityType Name="absence_request">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="employee_id" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="id" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="ask_date" Type="datetime" Precision="0" />
+          <Property Name="start_date" Type="date" />
+          <Property Name="end_date" Type="date" />
+          <Property Name="timeoff_type_id" Type="tinyint" />
+          <Property Name="status" Type="tinyint" />
+          <Property Name="approve_man_id" Type="varchar" MaxLength="200" />
+        </EntityType>
+        <EntityType Name="accrual">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="plan_name" Type="varchar" MaxLength="200" />
+          <Property Name="timeoff_type_id" Type="tinyint" />
+          <Property Name="start_date" Type="date" />
+          <Property Name="enforced_date" Type="date" />
+          <Property Name="amount_date" Type="date" />
+          <Property Name="period" Type="tinyint" />
+          <Property Name="unit" Type="varchar" MaxLength="200" />
+          <Property Name="limit" Type="tinyint" />
+          <Property Name="proccess_code_for_remain_days" Type="tinyint" />
+        </EntityType>
+        <EntityType Name="applicant">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="first_name" Type="varchar" MaxLength="200" />
+          <Property Name="last_name" Type="varchar" MaxLength="200" />
+          <Property Name="department_id" Type="varchar" MaxLength="200" />
+          <Property Name="title_id" Type="varchar" MaxLength="200" />
+          <Property Name="email" Type="varchar" MaxLength="200" />
+          <Property Name="phone" Type="varchar" MaxLength="20" />
+          <Property Name="degree_id" Type="tinyint" />
+          <Property Name="college" Type="varchar" MaxLength="300" />
+          <Property Name="require_wage" Type="double" />
+          <Property Name="interview_date" Type="date" />
+          <Property Name="interviewer_id" Type="varchar" MaxLength="200" />
+          <Property Name="status" Type="tinyint" />
+          <Property Name="ultimate_wage" Type="double" />
+          <Property Name="id" Type="varchar" MaxLength="200" Nullable="false" />
+        </EntityType>
+        <EntityType Name="contract">
+          <Key>
+            <PropertyRef Name="employee_id" />
+            <PropertyRef Name="start_date" />
+            <PropertyRef Name="end_date" />
+          </Key>
+          <Property Name="id" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="employee_id" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="start_date" Type="date" Nullable="false" />
+          <Property Name="end_date" Type="date" Nullable="false" />
+          <Property Name="standard_work_time_for_employee_id" Type="varchar" MaxLength="200" />
+          <Property Name="wage" Type="double" />
+          <Property Name="unit" Type="varchar" MaxLength="200" />
+          <Property Name="status" Type="tinyint" />
+          <Property Name="restrict_product_number" Type="int" />
+          <Property Name="require_educate" Type="bit" />
+          <Property Name="period_type" Type="tinyint" />
+          <Property Name="payroll_type" Type="tinyint" />
+        </EntityType>
+        <EntityType Name="degree">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="tinyint" Nullable="false" />
+          <Property Name="degree_name" Type="varchar" MaxLength="200" />
+        </EntityType>
+        <EntityType Name="department">
+          <Key>
+            <PropertyRef Name="department_id" />
+          </Key>
+          <Property Name="department_id" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="department_name" Type="varchar" MaxLength="300" />
+          <Property Name="manager_id" Type="varchar" MaxLength="200" />
+          <Property Name="parent_id" Type="varchar" MaxLength="200" />
+        </EntityType>
+        <EntityType Name="employee">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="first_name" Type="varchar" MaxLength="200" />
+          <Property Name="last_name" Type="varchar" MaxLength="200" />
+          <Property Name="title_id" Type="varchar" MaxLength="200" />
+          <Property Name="phone" Type="varchar" MaxLength="20" />
+          <Property Name="department_id" Type="varchar" MaxLength="200" />
+          <Property Name="manager_id" Type="varchar" MaxLength="200" />
+          <Property Name="timeoff_manager_id" Type="varchar" MaxLength="200" />
+          <Property Name="expense_manager_id" Type="varchar" MaxLength="200" />
+          <Property Name="address" Type="varchar" MaxLength="300" />
+          <Property Name="email" Type="varchar" MaxLength="200" />
+          <Property Name="distance_from_home" Type="double" />
+          <Property Name="identity_citizen_id" Type="varchar" MaxLength="20" />
+          <Property Name="gender" Type="bit" />
+          <Property Name="birthday" Type="date" />
+          <Property Name="born_place" Type="varchar" MaxLength="200" />
+          <Property Name="martial_status_id" Type="tinyint" />
+          <Property Name="number_of_children" Type="tinyint" />
+          <Property Name="emergency_contact_man" Type="varchar" MaxLength="200" />
+          <Property Name="emergency_phone" Type="varchar" MaxLength="20" />
+          <Property Name="degree_id" Type="tinyint" />
+          <Property Name="major" Type="varchar" MaxLength="300" />
+          <Property Name="college" Type="varchar" MaxLength="300" />
+          <Property Name="bank_account" Type="varchar" MaxLength="30" />
+        </EntityType>
+        <EntityType Name="expense">
+          <Key>
+            <PropertyRef Name="product_id" />
+            <PropertyRef Name="expense_date" />
+            <PropertyRef Name="employee_id" />
+          </Key>
+          <Property Name="product_id" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="price_per_item" Type="double" />
+          <Property Name="unit" Type="varchar" MaxLength="200" />
+          <Property Name="quantity" Type="int" />
+          <Property Name="total_value" Type="double" />
+          <Property Name="expense_date" Type="date" Nullable="false" />
+          <Property Name="employee_id" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="id" Type="varchar" MaxLength="200" />
+        </EntityType>
+        <EntityType Name="expense_report">
+          <Key>
+            <PropertyRef Name="report_id" />
+          </Key>
+          <Property Name="report_id" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="report_name" Type="varchar" MaxLength="300" />
+          <Property Name="approve_man_id" Type="varchar" MaxLength="200" />
+          <Property Name="pay_man_id" Type="varchar" MaxLength="200" />
+          <Property Name="status" Type="tinyint" />
+          <Property Name="employee_id" Type="varchar" MaxLength="200" />
+        </EntityType>
+        <EntityType Name="expenses_in_report">
+          <Key>
+            <PropertyRef Name="report_id" />
+            <PropertyRef Name="expense_id" />
+          </Key>
+          <Property Name="report_id" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="expense_id" Type="varchar" MaxLength="200" Nullable="false" />
+        </EntityType>
+        <EntityType Name="experience_education">
+          <Key>
+            <PropertyRef Name="id" />
+            <PropertyRef Name="organization_name" />
+            <PropertyRef Name="project_or_description" />
+          </Key>
+          <Property Name="id" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="organization_name" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="project_or_description" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="skill" Type="varchar" MaxLength="200" />
+          <Property Name="start_date" Type="date" />
+          <Property Name="end_date" Type="date" />
+        </EntityType>
+        <EntityType Name="material_status">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="tinyint" Nullable="false" />
+          <Property Name="status_name" Type="varchar" MaxLength="200" />
+        </EntityType>
+        <EntityType Name="n_absence">
+          <Key>
+            <PropertyRef Name="employee_id" />
+            <PropertyRef Name="absent_date" />
+          </Key>
+          <Property Name="employee_id" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="absent_date" Type="date" Nullable="false" />
+          <Property Name="is_allowed" Type="bit" />
+          <Property Name="special_reason" Type="bit" />
+        </EntityType>
+        <EntityType Name="n_extra_work_time">
+          <Key>
+            <PropertyRef Name="employee_id" />
+            <PropertyRef Name="work_date" />
+          </Key>
+          <Property Name="employee_id" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="work_date" Type="date" Nullable="false" />
+          <Property Name="from" Type="time" Precision="6" />
+          <Property Name="to" Type="time" Precision="6" />
+        </EntityType>
+        <EntityType Name="n_holiday">
+          <Key>
+            <PropertyRef Name="day" />
+          </Key>
+          <Property Name="day" Type="date" Nullable="false" />
+          <Property Name="holiday_name" Type="varchar" MaxLength="200" />
+        </EntityType>
+        <EntityType Name="n_number_product">
+          <Key>
+            <PropertyRef Name="start_date" />
+            <PropertyRef Name="end_date" />
+            <PropertyRef Name="product_id" />
+            <PropertyRef Name="employee_id" />
+          </Key>
+          <Property Name="start_date" Type="date" Nullable="false" />
+          <Property Name="end_date" Type="date" Nullable="false" />
+          <Property Name="number_product" Type="int" />
+          <Property Name="product_id" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="employee_id" Type="varchar" MaxLength="200" Nullable="false" />
+        </EntityType>
+        <EntityType Name="n_product">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="255" />
+          <Property Name="value" Type="double" />
+        </EntityType>
+        <EntityType Name="n_restrict_product">
+          <Key>
+            <PropertyRef Name="contract_id" />
+            <PropertyRef Name="employee_id" />
+          </Key>
+          <Property Name="contract_id" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="employee_id" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="number_product" Type="int" />
+        </EntityType>
+        <EntityType Name="plan">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="plan_name" Type="varchar" MaxLength="300" />
+        </EntityType>
+        <EntityType Name="plan_activities">
+          <Key>
+            <PropertyRef Name="plan_id" />
+            <PropertyRef Name="job_name" />
+          </Key>
+          <Property Name="plan_id" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="job_name" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="conduct_role_id" Type="tinyint" />
+          <Property Name="deadline" Type="datetime" Precision="6" />
+        </EntityType>
+        <EntityType Name="plan_for_employee">
+          <Key>
+            <PropertyRef Name="plan_id" />
+            <PropertyRef Name="employee_id" />
+          </Key>
+          <Property Name="plan_id" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="employee_id" Type="varchar" MaxLength="200" Nullable="false" />
+        </EntityType>
+        <EntityType Name="product">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="product_name" Type="varchar" MaxLength="200" />
+          <Property Name="proposed_price" Type="double" />
+          <Property Name="unit_1" Type="varchar" MaxLength="200" />
+          <Property Name="sale_price" Type="double" />
+          <Property Name="unit_2" Type="varchar" MaxLength="200" />
+          <Property Name="prefix_code" Type="varchar" MaxLength="200" />
+          <Property Name="vendor_tax" Type="tinyint" />
+          <Property Name="customer_tax" Type="tinyint" />
+        </EntityType>
+        <EntityType Name="requirements_for_job">
+          <Key>
+            <PropertyRef Name="title_id" />
+            <PropertyRef Name="department_id" />
+          </Key>
+          <Property Name="title_id" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="department_id" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="requires" Type="varchar" MaxLength="400" />
+        </EntityType>
+        <EntityType Name="role">
+          <Key>
+            <PropertyRef Name="role_id" />
+          </Key>
+          <Property Name="role_id" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="role_name" Type="varchar" MaxLength="200" />
+        </EntityType>
+        <EntityType Name="skill">
+          <Key>
+            <PropertyRef Name="skill_name" />
+            <PropertyRef Name="level" />
+          </Key>
+          <Property Name="skill_name" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="level" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="skill_type_id" Type="tinyint" />
+          <Property Name="id" Type="varchar" MaxLength="200" />
+        </EntityType>
+        <EntityType Name="skill_of_employee">
+          <Key>
+            <PropertyRef Name="employee_id" />
+            <PropertyRef Name="skill_level_id" />
+          </Key>
+          <Property Name="employee_id" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="skill_level_id" Type="varchar" MaxLength="200" Nullable="false" />
+        </EntityType>
+        <EntityType Name="skill_type">
+          <Key>
+            <PropertyRef Name="skill_type_id" />
+          </Key>
+          <Property Name="skill_type_id" Type="tinyint" Nullable="false" />
+          <Property Name="skill_type_name" Type="varchar" MaxLength="200" />
+        </EntityType>
+        <EntityType Name="standard_work_time">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="amount_time" Type="tinyint" />
+          <Property Name="unit" Type="varchar" MaxLength="200" />
+          <Property Name="period" Type="varchar" MaxLength="200" />
+        </EntityType>
+        <EntityType Name="standard_work_time_for_employee">
+          <Key>
+            <PropertyRef Name="employee_id" />
+            <PropertyRef Name="month" />
+          </Key>
+          <Property Name="id" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="standard_work_time_id" Type="varchar" MaxLength="200" />
+          <Property Name="employee_id" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="month" Type="tinyint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="time_off">
+          <Key>
+            <PropertyRef Name="employee_id" />
+            <PropertyRef Name="month" />
+            <PropertyRef Name="year" />
+          </Key>
+          <Property Name="employee_id" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="month" Type="tinyint" Nullable="false" />
+          <Property Name="year" Type="smallint" Nullable="false" />
+          <Property Name="timeoff_type_id" Type="tinyint" Nullable="false" />
+          <Property Name="number" Type="tinyint" />
+        </EntityType>
+        <EntityType Name="timeoff_type">
+          <Key>
+            <PropertyRef Name="timeoff_type_id" />
+          </Key>
+          <Property Name="timeoff_type_id" Type="tinyint" Nullable="false" />
+          <Property Name="timeoff_type_name" Type="varchar" MaxLength="200" />
+        </EntityType>
+        <EntityType Name="title">
+          <Key>
+            <PropertyRef Name="title_id" />
+          </Key>
+          <Property Name="title_id" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="title_name" Type="varchar" MaxLength="200" />
+        </EntityType>
+        <EntityType Name="title_recruit">
+          <Key>
+            <PropertyRef Name="title_id" />
+            <PropertyRef Name="department_id" />
+          </Key>
+          <Property Name="title_id" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="slot" Type="tinyint" />
+          <Property Name="department_id" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="recruiter" Type="varchar" MaxLength="200" />
+        </EntityType>
+        <EntityType Name="work_time">
+          <Key>
+            <PropertyRef Name="employee_id" />
+            <PropertyRef Name="month" />
+            <PropertyRef Name="year" />
+          </Key>
+          <Property Name="employee_id" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="month" Type="tinyint" Nullable="false" />
+          <Property Name="year" Type="smallint" Nullable="false" />
+          <Property Name="extra_work_time" Type="tinyint" />
+        </EntityType>
+        <EntityContainer Name="hrmModelStoreContainer">
+          <EntitySet Name="absence" EntityType="Self.absence" Schema="hrm" store:Type="Tables" />
+          <EntitySet Name="absence_request" EntityType="Self.absence_request" Schema="hrm" store:Type="Tables" />
+          <EntitySet Name="accrual" EntityType="Self.accrual" Schema="hrm" store:Type="Tables" />
+          <EntitySet Name="applicant" EntityType="Self.applicant" Schema="hrm" store:Type="Tables" />
+          <EntitySet Name="contract" EntityType="Self.contract" Schema="hrm" store:Type="Tables" />
+          <EntitySet Name="degree" EntityType="Self.degree" Schema="hrm" store:Type="Tables" />
+          <EntitySet Name="department" EntityType="Self.department" Schema="hrm" store:Type="Tables" />
+          <EntitySet Name="employee" EntityType="Self.employee" Schema="hrm" store:Type="Tables" />
+          <EntitySet Name="expense" EntityType="Self.expense" Schema="hrm" store:Type="Tables" />
+          <EntitySet Name="expense_report" EntityType="Self.expense_report" Schema="hrm" store:Type="Tables" />
+          <EntitySet Name="expenses_in_report" EntityType="Self.expenses_in_report" Schema="hrm" store:Type="Tables" />
+          <EntitySet Name="experience_education" EntityType="Self.experience_education" Schema="hrm" store:Type="Tables" />
+          <EntitySet Name="material_status" EntityType="Self.material_status" Schema="hrm" store:Type="Tables" />
+          <EntitySet Name="n_absence" EntityType="Self.n_absence" Schema="hrm" store:Type="Tables" />
+          <EntitySet Name="n_extra_work_time" EntityType="Self.n_extra_work_time" Schema="hrm" store:Type="Tables" />
+          <EntitySet Name="n_holiday" EntityType="Self.n_holiday" Schema="hrm" store:Type="Tables" />
+          <EntitySet Name="n_number_product" EntityType="Self.n_number_product" Schema="hrm" store:Type="Tables" />
+          <EntitySet Name="n_product" EntityType="Self.n_product" Schema="hrm" store:Type="Tables" />
+          <EntitySet Name="n_restrict_product" EntityType="Self.n_restrict_product" Schema="hrm" store:Type="Tables" />
+          <EntitySet Name="plan" EntityType="Self.plan" Schema="hrm" store:Type="Tables" />
+          <EntitySet Name="plan_activities" EntityType="Self.plan_activities" Schema="hrm" store:Type="Tables" />
+          <EntitySet Name="plan_for_employee" EntityType="Self.plan_for_employee" Schema="hrm" store:Type="Tables" />
+          <EntitySet Name="product" EntityType="Self.product" Schema="hrm" store:Type="Tables" />
+          <EntitySet Name="requirements_for_job" EntityType="Self.requirements_for_job" Schema="hrm" store:Type="Tables" />
+          <EntitySet Name="role" EntityType="Self.role" Schema="hrm" store:Type="Tables" />
+          <EntitySet Name="skill" EntityType="Self.skill" Schema="hrm" store:Type="Tables" />
+          <EntitySet Name="skill_of_employee" EntityType="Self.skill_of_employee" Schema="hrm" store:Type="Tables" />
+          <EntitySet Name="skill_type" EntityType="Self.skill_type" Schema="hrm" store:Type="Tables" />
+          <EntitySet Name="standard_work_time" EntityType="Self.standard_work_time" Schema="hrm" store:Type="Tables" />
+          <EntitySet Name="standard_work_time_for_employee" EntityType="Self.standard_work_time_for_employee" Schema="hrm" store:Type="Tables" />
+          <EntitySet Name="time_off" EntityType="Self.time_off" Schema="hrm" store:Type="Tables" />
+          <EntitySet Name="timeoff_type" EntityType="Self.timeoff_type" Schema="hrm" store:Type="Tables" />
+          <EntitySet Name="title" EntityType="Self.title" Schema="hrm" store:Type="Tables" />
+          <EntitySet Name="title_recruit" EntityType="Self.title_recruit" Schema="hrm" store:Type="Tables" />
+          <EntitySet Name="work_time" EntityType="Self.work_time" Schema="hrm" store:Type="Tables" />
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="hrmModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="absence">
+          <Key>
+            <PropertyRef Name="employee_id" />
+            <PropertyRef Name="date" />
+          </Key>
+          <Property Name="employee_id" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="date" Type="DateTime" Nullable="false" />
+          <Property Name="is_absence" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="absence_request">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="employee_id" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="id" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ask_date" Type="DateTime" />
+          <Property Name="start_date" Type="DateTime" />
+          <Property Name="end_date" Type="DateTime" />
+          <Property Name="timeoff_type_id" Type="SByte" />
+          <Property Name="status" Type="SByte" />
+          <Property Name="approve_man_id" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="accrual">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="plan_name" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="timeoff_type_id" Type="SByte" />
+          <Property Name="start_date" Type="DateTime" />
+          <Property Name="enforced_date" Type="DateTime" />
+          <Property Name="amount_date" Type="DateTime" />
+          <Property Name="period" Type="SByte" />
+          <Property Name="unit" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="limit" Type="SByte" />
+          <Property Name="proccess_code_for_remain_days" Type="SByte" />
+        </EntityType>
+        <EntityType Name="applicant">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="first_name" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="last_name" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="department_id" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="title_id" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="email" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="phone" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="degree_id" Type="SByte" />
+          <Property Name="college" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="require_wage" Type="Double" />
+          <Property Name="interview_date" Type="DateTime" />
+          <Property Name="interviewer_id" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="status" Type="SByte" />
+          <Property Name="ultimate_wage" Type="Double" />
+          <Property Name="id" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="contract">
+          <Key>
+            <PropertyRef Name="employee_id" />
+            <PropertyRef Name="start_date" />
+            <PropertyRef Name="end_date" />
+          </Key>
+          <Property Name="id" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="employee_id" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="start_date" Type="DateTime" Nullable="false" />
+          <Property Name="end_date" Type="DateTime" Nullable="false" />
+          <Property Name="standard_work_time_for_employee_id" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="wage" Type="Double" />
+          <Property Name="unit" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="status" Type="SByte" />
+          <Property Name="restrict_product_number" Type="Int32" />
+          <Property Name="require_educate" Type="Boolean" />
+          <Property Name="period_type" Type="SByte" />
+          <Property Name="payroll_type" Type="SByte" />
+        </EntityType>
+        <EntityType Name="degree">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="SByte" Nullable="false" />
+          <Property Name="degree_name" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="department">
+          <Key>
+            <PropertyRef Name="department_id" />
+          </Key>
+          <Property Name="department_id" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="department_name" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="manager_id" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="parent_id" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="employee">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="first_name" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="last_name" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="title_id" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="phone" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="department_id" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="manager_id" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="timeoff_manager_id" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="expense_manager_id" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="address" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="email" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="distance_from_home" Type="Double" />
+          <Property Name="identity_citizen_id" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="gender" Type="Boolean" />
+          <Property Name="birthday" Type="DateTime" />
+          <Property Name="born_place" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="martial_status_id" Type="SByte" />
+          <Property Name="number_of_children" Type="SByte" />
+          <Property Name="emergency_contact_man" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="emergency_phone" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="degree_id" Type="SByte" />
+          <Property Name="major" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="college" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="bank_account" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="expense">
+          <Key>
+            <PropertyRef Name="product_id" />
+            <PropertyRef Name="expense_date" />
+            <PropertyRef Name="employee_id" />
+          </Key>
+          <Property Name="product_id" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="price_per_item" Type="Double" />
+          <Property Name="unit" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="quantity" Type="Int32" />
+          <Property Name="total_value" Type="Double" />
+          <Property Name="expense_date" Type="DateTime" Nullable="false" />
+          <Property Name="employee_id" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="id" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="expense_report">
+          <Key>
+            <PropertyRef Name="report_id" />
+          </Key>
+          <Property Name="report_id" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="report_name" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="approve_man_id" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="pay_man_id" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="status" Type="SByte" />
+          <Property Name="employee_id" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="experience_education">
+          <Key>
+            <PropertyRef Name="id" />
+            <PropertyRef Name="organization_name" />
+            <PropertyRef Name="project_or_description" />
+          </Key>
+          <Property Name="id" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="organization_name" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="project_or_description" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="skill" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="start_date" Type="DateTime" />
+          <Property Name="end_date" Type="DateTime" />
+        </EntityType>
+        <EntityType Name="material_status">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="SByte" Nullable="false" />
+          <Property Name="status_name" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="plan">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="plan_name" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="plan_activities">
+          <Key>
+            <PropertyRef Name="plan_id" />
+            <PropertyRef Name="job_name" />
+          </Key>
+          <Property Name="plan_id" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="job_name" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="conduct_role_id" Type="SByte" />
+          <Property Name="deadline" Type="DateTime" />
+        </EntityType>
+        <EntityType Name="plan_for_employee">
+          <Key>
+            <PropertyRef Name="plan_id" />
+            <PropertyRef Name="employee_id" />
+          </Key>
+          <Property Name="plan_id" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="employee_id" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="product">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="product_name" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="proposed_price" Type="Double" />
+          <Property Name="unit_1" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="sale_price" Type="Double" />
+          <Property Name="unit_2" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="prefix_code" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="vendor_tax" Type="SByte" />
+          <Property Name="customer_tax" Type="SByte" />
+        </EntityType>
+        <EntityType Name="requirements_for_job">
+          <Key>
+            <PropertyRef Name="title_id" />
+            <PropertyRef Name="department_id" />
+          </Key>
+          <Property Name="title_id" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="department_id" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="requires" Type="String" MaxLength="400" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="role">
+          <Key>
+            <PropertyRef Name="role_id" />
+          </Key>
+          <Property Name="role_id" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="role_name" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="skill">
+          <Key>
+            <PropertyRef Name="skill_name" />
+            <PropertyRef Name="level" />
+          </Key>
+          <Property Name="skill_name" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="level" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="skill_type_id" Type="SByte" />
+          <Property Name="id" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="skill_of_employee">
+          <Key>
+            <PropertyRef Name="employee_id" />
+            <PropertyRef Name="skill_level_id" />
+          </Key>
+          <Property Name="employee_id" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="skill_level_id" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="skill_type">
+          <Key>
+            <PropertyRef Name="skill_type_id" />
+          </Key>
+          <Property Name="skill_type_id" Type="SByte" Nullable="false" />
+          <Property Name="skill_type_name" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="standard_work_time">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="amount_time" Type="SByte" />
+          <Property Name="unit" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="period" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="standard_work_time_for_employee">
+          <Key>
+            <PropertyRef Name="employee_id" />
+            <PropertyRef Name="month" />
+          </Key>
+          <Property Name="id" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="standard_work_time_id" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="employee_id" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="month" Type="SByte" Nullable="false" />
+        </EntityType>
+        <EntityType Name="time_off">
+          <Key>
+            <PropertyRef Name="employee_id" />
+            <PropertyRef Name="month" />
+            <PropertyRef Name="year" />
+          </Key>
+          <Property Name="employee_id" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="month" Type="SByte" Nullable="false" />
+          <Property Name="year" Type="Int16" Nullable="false" />
+          <Property Name="timeoff_type_id" Type="SByte" Nullable="false" />
+          <Property Name="number" Type="SByte" />
+        </EntityType>
+        <EntityType Name="timeoff_type">
+          <Key>
+            <PropertyRef Name="timeoff_type_id" />
+          </Key>
+          <Property Name="timeoff_type_id" Type="SByte" Nullable="false" />
+          <Property Name="timeoff_type_name" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="title">
+          <Key>
+            <PropertyRef Name="title_id" />
+          </Key>
+          <Property Name="title_id" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="title_name" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="title_recruit">
+          <Key>
+            <PropertyRef Name="title_id" />
+            <PropertyRef Name="department_id" />
+          </Key>
+          <Property Name="title_id" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="slot" Type="SByte" />
+          <Property Name="department_id" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="recruiter" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="work_time">
+          <Key>
+            <PropertyRef Name="employee_id" />
+            <PropertyRef Name="month" />
+            <PropertyRef Name="year" />
+          </Key>
+          <Property Name="employee_id" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="month" Type="SByte" Nullable="false" />
+          <Property Name="year" Type="Int16" Nullable="false" />
+          <Property Name="extra_work_time" Type="SByte" />
+        </EntityType>
+        <EntityContainer Name="hrmEntities1" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="absences" EntityType="Self.absence" />
+          <EntitySet Name="absence_request" EntityType="Self.absence_request" />
+          <EntitySet Name="accruals" EntityType="Self.accrual" />
+          <EntitySet Name="applicants" EntityType="Self.applicant" />
+          <EntitySet Name="contracts" EntityType="Self.contract" />
+          <EntitySet Name="degrees" EntityType="Self.degree" />
+          <EntitySet Name="departments" EntityType="Self.department" />
+          <EntitySet Name="employees" EntityType="Self.employee" />
+          <EntitySet Name="expenses" EntityType="Self.expense" />
+          <EntitySet Name="expense_report" EntityType="Self.expense_report" />
+          <EntitySet Name="experience_education" EntityType="Self.experience_education" />
+          <EntitySet Name="material_status" EntityType="Self.material_status" />
+          <EntitySet Name="plans" EntityType="Self.plan" />
+          <EntitySet Name="plan_activities" EntityType="Self.plan_activities" />
+          <EntitySet Name="plan_for_employee" EntityType="Self.plan_for_employee" />
+          <EntitySet Name="products" EntityType="Self.product" />
+          <EntitySet Name="requirements_for_job" EntityType="Self.requirements_for_job" />
+          <EntitySet Name="roles" EntityType="Self.role" />
+          <EntitySet Name="skills" EntityType="Self.skill" />
+          <EntitySet Name="skill_of_employee" EntityType="Self.skill_of_employee" />
+          <EntitySet Name="skill_type" EntityType="Self.skill_type" />
+          <EntitySet Name="standard_work_time" EntityType="Self.standard_work_time" />
+          <EntitySet Name="standard_work_time_for_employee" EntityType="Self.standard_work_time_for_employee" />
+          <EntitySet Name="time_off" EntityType="Self.time_off" />
+          <EntitySet Name="timeoff_type" EntityType="Self.timeoff_type" />
+          <EntitySet Name="titles" EntityType="Self.title" />
+          <EntitySet Name="title_recruit" EntityType="Self.title_recruit" />
+          <EntitySet Name="work_time" EntityType="Self.work_time" />
+          <EntitySet Name="expenses_in_report" EntityType="hrmModel.expenses_in_report" />
+          <EntitySet Name="n_absence" EntityType="hrmModel.n_absence" />
+          <EntitySet Name="n_extra_work_time" EntityType="hrmModel.n_extra_work_time" />
+          <EntitySet Name="n_number_product" EntityType="hrmModel.n_number_product" />
+          <EntitySet Name="n_product" EntityType="hrmModel.n_product" />
+          <EntitySet Name="n_restrict_product" EntityType="hrmModel.n_restrict_product" />
+          <EntitySet Name="n_holiday" EntityType="hrmModel.n_holiday" />
+        </EntityContainer>
+        <EntityType Name="expenses_in_report">
+          <Key>
+            <PropertyRef Name="report_id" />
+            <PropertyRef Name="expense_id" />
+          </Key>
+          <Property Name="report_id" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="expense_id" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="n_absence">
+          <Key>
+            <PropertyRef Name="employee_id" />
+            <PropertyRef Name="absent_date" />
+          </Key>
+          <Property Name="employee_id" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="absent_date" Type="DateTime" Nullable="false" />
+          <Property Name="is_allowed" Type="Boolean" />
+          <Property Name="special_reason" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="n_extra_work_time">
+          <Key>
+            <PropertyRef Name="employee_id" />
+            <PropertyRef Name="work_date" />
+          </Key>
+          <Property Name="employee_id" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="work_date" Type="DateTime" Nullable="false" />
+          <Property Name="from" Type="Time" />
+          <Property Name="to" Type="Time" />
+        </EntityType>
+        <EntityType Name="n_number_product">
+          <Key>
+            <PropertyRef Name="start_date" />
+            <PropertyRef Name="end_date" />
+            <PropertyRef Name="product_id" />
+            <PropertyRef Name="employee_id" />
+          </Key>
+          <Property Name="start_date" Type="DateTime" Nullable="false" />
+          <Property Name="end_date" Type="DateTime" Nullable="false" />
+          <Property Name="number_product" Type="Int32" />
+          <Property Name="product_id" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="employee_id" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="n_product">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="name" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="value" Type="Double" />
+        </EntityType>
+        <EntityType Name="n_restrict_product">
+          <Key>
+            <PropertyRef Name="contract_id" />
+            <PropertyRef Name="employee_id" />
+          </Key>
+          <Property Name="contract_id" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="employee_id" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="number_product" Type="Int32" />
+        </EntityType>
+        <EntityType Name="n_holiday">
+          <Key>
+            <PropertyRef Name="day" />
+          </Key>
+          <Property Name="day" Type="DateTime" Nullable="false" />
+          <Property Name="holiday_name" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="hrmModelStoreContainer" CdmEntityContainer="hrmEntities1">
+          <EntitySetMapping Name="absences">
+            <EntityTypeMapping TypeName="hrmModel.absence">
+              <MappingFragment StoreEntitySet="absence">
+                <ScalarProperty Name="employee_id" ColumnName="employee_id" />
+                <ScalarProperty Name="date" ColumnName="date" />
+                <ScalarProperty Name="is_absence" ColumnName="is_absence" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="absence_request">
+            <EntityTypeMapping TypeName="hrmModel.absence_request">
+              <MappingFragment StoreEntitySet="absence_request">
+                <ScalarProperty Name="employee_id" ColumnName="employee_id" />
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="ask_date" ColumnName="ask_date" />
+                <ScalarProperty Name="start_date" ColumnName="start_date" />
+                <ScalarProperty Name="end_date" ColumnName="end_date" />
+                <ScalarProperty Name="timeoff_type_id" ColumnName="timeoff_type_id" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="approve_man_id" ColumnName="approve_man_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="accruals">
+            <EntityTypeMapping TypeName="hrmModel.accrual">
+              <MappingFragment StoreEntitySet="accrual">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="plan_name" ColumnName="plan_name" />
+                <ScalarProperty Name="timeoff_type_id" ColumnName="timeoff_type_id" />
+                <ScalarProperty Name="start_date" ColumnName="start_date" />
+                <ScalarProperty Name="enforced_date" ColumnName="enforced_date" />
+                <ScalarProperty Name="amount_date" ColumnName="amount_date" />
+                <ScalarProperty Name="period" ColumnName="period" />
+                <ScalarProperty Name="unit" ColumnName="unit" />
+                <ScalarProperty Name="limit" ColumnName="limit" />
+                <ScalarProperty Name="proccess_code_for_remain_days" ColumnName="proccess_code_for_remain_days" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="applicants">
+            <EntityTypeMapping TypeName="hrmModel.applicant">
+              <MappingFragment StoreEntitySet="applicant">
+                <ScalarProperty Name="first_name" ColumnName="first_name" />
+                <ScalarProperty Name="last_name" ColumnName="last_name" />
+                <ScalarProperty Name="department_id" ColumnName="department_id" />
+                <ScalarProperty Name="title_id" ColumnName="title_id" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="phone" ColumnName="phone" />
+                <ScalarProperty Name="degree_id" ColumnName="degree_id" />
+                <ScalarProperty Name="college" ColumnName="college" />
+                <ScalarProperty Name="require_wage" ColumnName="require_wage" />
+                <ScalarProperty Name="interview_date" ColumnName="interview_date" />
+                <ScalarProperty Name="interviewer_id" ColumnName="interviewer_id" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="ultimate_wage" ColumnName="ultimate_wage" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="contracts">
+            <EntityTypeMapping TypeName="hrmModel.contract">
+              <MappingFragment StoreEntitySet="contract">
+                <ScalarProperty Name="payroll_type" ColumnName="payroll_type" />
+                <ScalarProperty Name="period_type" ColumnName="period_type" />
+                <ScalarProperty Name="require_educate" ColumnName="require_educate" />
+                <ScalarProperty Name="restrict_product_number" ColumnName="restrict_product_number" />
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="employee_id" ColumnName="employee_id" />
+                <ScalarProperty Name="start_date" ColumnName="start_date" />
+                <ScalarProperty Name="end_date" ColumnName="end_date" />
+                <ScalarProperty Name="standard_work_time_for_employee_id" ColumnName="standard_work_time_for_employee_id" />
+                <ScalarProperty Name="wage" ColumnName="wage" />
+                <ScalarProperty Name="unit" ColumnName="unit" />
+                <ScalarProperty Name="status" ColumnName="status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="degrees">
+            <EntityTypeMapping TypeName="hrmModel.degree">
+              <MappingFragment StoreEntitySet="degree">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="degree_name" ColumnName="degree_name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="departments">
+            <EntityTypeMapping TypeName="hrmModel.department">
+              <MappingFragment StoreEntitySet="department">
+                <ScalarProperty Name="department_id" ColumnName="department_id" />
+                <ScalarProperty Name="department_name" ColumnName="department_name" />
+                <ScalarProperty Name="manager_id" ColumnName="manager_id" />
+                <ScalarProperty Name="parent_id" ColumnName="parent_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="employees">
+            <EntityTypeMapping TypeName="hrmModel.employee">
+              <MappingFragment StoreEntitySet="employee">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="first_name" ColumnName="first_name" />
+                <ScalarProperty Name="last_name" ColumnName="last_name" />
+                <ScalarProperty Name="title_id" ColumnName="title_id" />
+                <ScalarProperty Name="phone" ColumnName="phone" />
+                <ScalarProperty Name="department_id" ColumnName="department_id" />
+                <ScalarProperty Name="manager_id" ColumnName="manager_id" />
+                <ScalarProperty Name="timeoff_manager_id" ColumnName="timeoff_manager_id" />
+                <ScalarProperty Name="expense_manager_id" ColumnName="expense_manager_id" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="distance_from_home" ColumnName="distance_from_home" />
+                <ScalarProperty Name="identity_citizen_id" ColumnName="identity_citizen_id" />
+                <ScalarProperty Name="gender" ColumnName="gender" />
+                <ScalarProperty Name="birthday" ColumnName="birthday" />
+                <ScalarProperty Name="born_place" ColumnName="born_place" />
+                <ScalarProperty Name="martial_status_id" ColumnName="martial_status_id" />
+                <ScalarProperty Name="number_of_children" ColumnName="number_of_children" />
+                <ScalarProperty Name="emergency_contact_man" ColumnName="emergency_contact_man" />
+                <ScalarProperty Name="emergency_phone" ColumnName="emergency_phone" />
+                <ScalarProperty Name="degree_id" ColumnName="degree_id" />
+                <ScalarProperty Name="major" ColumnName="major" />
+                <ScalarProperty Name="college" ColumnName="college" />
+                <ScalarProperty Name="bank_account" ColumnName="bank_account" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="expenses">
+            <EntityTypeMapping TypeName="hrmModel.expense">
+              <MappingFragment StoreEntitySet="expense">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="product_id" ColumnName="product_id" />
+                <ScalarProperty Name="price_per_item" ColumnName="price_per_item" />
+                <ScalarProperty Name="unit" ColumnName="unit" />
+                <ScalarProperty Name="quantity" ColumnName="quantity" />
+                <ScalarProperty Name="total_value" ColumnName="total_value" />
+                <ScalarProperty Name="expense_date" ColumnName="expense_date" />
+                <ScalarProperty Name="employee_id" ColumnName="employee_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="expense_report">
+            <EntityTypeMapping TypeName="hrmModel.expense_report">
+              <MappingFragment StoreEntitySet="expense_report">
+                <ScalarProperty Name="report_id" ColumnName="report_id" />
+                <ScalarProperty Name="report_name" ColumnName="report_name" />
+                <ScalarProperty Name="approve_man_id" ColumnName="approve_man_id" />
+                <ScalarProperty Name="pay_man_id" ColumnName="pay_man_id" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="employee_id" ColumnName="employee_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="experience_education">
+            <EntityTypeMapping TypeName="hrmModel.experience_education">
+              <MappingFragment StoreEntitySet="experience_education">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="organization_name" ColumnName="organization_name" />
+                <ScalarProperty Name="project_or_description" ColumnName="project_or_description" />
+                <ScalarProperty Name="skill" ColumnName="skill" />
+                <ScalarProperty Name="start_date" ColumnName="start_date" />
+                <ScalarProperty Name="end_date" ColumnName="end_date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="material_status">
+            <EntityTypeMapping TypeName="hrmModel.material_status">
+              <MappingFragment StoreEntitySet="material_status">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="status_name" ColumnName="status_name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="plans">
+            <EntityTypeMapping TypeName="hrmModel.plan">
+              <MappingFragment StoreEntitySet="plan">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="plan_name" ColumnName="plan_name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="plan_activities">
+            <EntityTypeMapping TypeName="hrmModel.plan_activities">
+              <MappingFragment StoreEntitySet="plan_activities">
+                <ScalarProperty Name="plan_id" ColumnName="plan_id" />
+                <ScalarProperty Name="job_name" ColumnName="job_name" />
+                <ScalarProperty Name="conduct_role_id" ColumnName="conduct_role_id" />
+                <ScalarProperty Name="deadline" ColumnName="deadline" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="plan_for_employee">
+            <EntityTypeMapping TypeName="hrmModel.plan_for_employee">
+              <MappingFragment StoreEntitySet="plan_for_employee">
+                <ScalarProperty Name="plan_id" ColumnName="plan_id" />
+                <ScalarProperty Name="employee_id" ColumnName="employee_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="products">
+            <EntityTypeMapping TypeName="hrmModel.product">
+              <MappingFragment StoreEntitySet="product">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="product_name" ColumnName="product_name" />
+                <ScalarProperty Name="proposed_price" ColumnName="proposed_price" />
+                <ScalarProperty Name="unit_1" ColumnName="unit_1" />
+                <ScalarProperty Name="sale_price" ColumnName="sale_price" />
+                <ScalarProperty Name="unit_2" ColumnName="unit_2" />
+                <ScalarProperty Name="prefix_code" ColumnName="prefix_code" />
+                <ScalarProperty Name="vendor_tax" ColumnName="vendor_tax" />
+                <ScalarProperty Name="customer_tax" ColumnName="customer_tax" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="requirements_for_job">
+            <EntityTypeMapping TypeName="hrmModel.requirements_for_job">
+              <MappingFragment StoreEntitySet="requirements_for_job">
+                <ScalarProperty Name="title_id" ColumnName="title_id" />
+                <ScalarProperty Name="department_id" ColumnName="department_id" />
+                <ScalarProperty Name="requires" ColumnName="requires" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="roles">
+            <EntityTypeMapping TypeName="hrmModel.role">
+              <MappingFragment StoreEntitySet="role">
+                <ScalarProperty Name="role_id" ColumnName="role_id" />
+                <ScalarProperty Name="role_name" ColumnName="role_name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="skills">
+            <EntityTypeMapping TypeName="hrmModel.skill">
+              <MappingFragment StoreEntitySet="skill">
+                <ScalarProperty Name="skill_name" ColumnName="skill_name" />
+                <ScalarProperty Name="level" ColumnName="level" />
+                <ScalarProperty Name="skill_type_id" ColumnName="skill_type_id" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="skill_of_employee">
+            <EntityTypeMapping TypeName="hrmModel.skill_of_employee">
+              <MappingFragment StoreEntitySet="skill_of_employee">
+                <ScalarProperty Name="employee_id" ColumnName="employee_id" />
+                <ScalarProperty Name="skill_level_id" ColumnName="skill_level_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="skill_type">
+            <EntityTypeMapping TypeName="hrmModel.skill_type">
+              <MappingFragment StoreEntitySet="skill_type">
+                <ScalarProperty Name="skill_type_id" ColumnName="skill_type_id" />
+                <ScalarProperty Name="skill_type_name" ColumnName="skill_type_name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="standard_work_time">
+            <EntityTypeMapping TypeName="hrmModel.standard_work_time">
+              <MappingFragment StoreEntitySet="standard_work_time">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="amount_time" ColumnName="amount_time" />
+                <ScalarProperty Name="unit" ColumnName="unit" />
+                <ScalarProperty Name="period" ColumnName="period" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="standard_work_time_for_employee">
+            <EntityTypeMapping TypeName="hrmModel.standard_work_time_for_employee">
+              <MappingFragment StoreEntitySet="standard_work_time_for_employee">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="standard_work_time_id" ColumnName="standard_work_time_id" />
+                <ScalarProperty Name="employee_id" ColumnName="employee_id" />
+                <ScalarProperty Name="month" ColumnName="month" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="time_off">
+            <EntityTypeMapping TypeName="hrmModel.time_off">
+              <MappingFragment StoreEntitySet="time_off">
+                <ScalarProperty Name="employee_id" ColumnName="employee_id" />
+                <ScalarProperty Name="month" ColumnName="month" />
+                <ScalarProperty Name="year" ColumnName="year" />
+                <ScalarProperty Name="timeoff_type_id" ColumnName="timeoff_type_id" />
+                <ScalarProperty Name="number" ColumnName="number" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="timeoff_type">
+            <EntityTypeMapping TypeName="hrmModel.timeoff_type">
+              <MappingFragment StoreEntitySet="timeoff_type">
+                <ScalarProperty Name="timeoff_type_id" ColumnName="timeoff_type_id" />
+                <ScalarProperty Name="timeoff_type_name" ColumnName="timeoff_type_name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="titles">
+            <EntityTypeMapping TypeName="hrmModel.title">
+              <MappingFragment StoreEntitySet="title">
+                <ScalarProperty Name="title_id" ColumnName="title_id" />
+                <ScalarProperty Name="title_name" ColumnName="title_name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="title_recruit">
+            <EntityTypeMapping TypeName="hrmModel.title_recruit">
+              <MappingFragment StoreEntitySet="title_recruit">
+                <ScalarProperty Name="title_id" ColumnName="title_id" />
+                <ScalarProperty Name="slot" ColumnName="slot" />
+                <ScalarProperty Name="department_id" ColumnName="department_id" />
+                <ScalarProperty Name="recruiter" ColumnName="recruiter" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="work_time">
+            <EntityTypeMapping TypeName="hrmModel.work_time">
+              <MappingFragment StoreEntitySet="work_time">
+                <ScalarProperty Name="employee_id" ColumnName="employee_id" />
+                <ScalarProperty Name="month" ColumnName="month" />
+                <ScalarProperty Name="year" ColumnName="year" />
+                <ScalarProperty Name="extra_work_time" ColumnName="extra_work_time" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="expenses_in_report">
+            <EntityTypeMapping TypeName="hrmModel.expenses_in_report">
+              <MappingFragment StoreEntitySet="expenses_in_report">
+                <ScalarProperty Name="expense_id" ColumnName="expense_id" />
+                <ScalarProperty Name="report_id" ColumnName="report_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="n_absence">
+            <EntityTypeMapping TypeName="hrmModel.n_absence">
+              <MappingFragment StoreEntitySet="n_absence">
+                <ScalarProperty Name="special_reason" ColumnName="special_reason" />
+                <ScalarProperty Name="is_allowed" ColumnName="is_allowed" />
+                <ScalarProperty Name="absent_date" ColumnName="absent_date" />
+                <ScalarProperty Name="employee_id" ColumnName="employee_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="n_extra_work_time">
+            <EntityTypeMapping TypeName="hrmModel.n_extra_work_time">
+              <MappingFragment StoreEntitySet="n_extra_work_time">
+                <ScalarProperty Name="to" ColumnName="to" />
+                <ScalarProperty Name="from" ColumnName="from" />
+                <ScalarProperty Name="work_date" ColumnName="work_date" />
+                <ScalarProperty Name="employee_id" ColumnName="employee_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="n_number_product">
+            <EntityTypeMapping TypeName="hrmModel.n_number_product">
+              <MappingFragment StoreEntitySet="n_number_product">
+                <ScalarProperty Name="employee_id" ColumnName="employee_id" />
+                <ScalarProperty Name="product_id" ColumnName="product_id" />
+                <ScalarProperty Name="number_product" ColumnName="number_product" />
+                <ScalarProperty Name="end_date" ColumnName="end_date" />
+                <ScalarProperty Name="start_date" ColumnName="start_date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="n_product">
+            <EntityTypeMapping TypeName="hrmModel.n_product">
+              <MappingFragment StoreEntitySet="n_product">
+                <ScalarProperty Name="value" ColumnName="value" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="n_restrict_product">
+            <EntityTypeMapping TypeName="hrmModel.n_restrict_product">
+              <MappingFragment StoreEntitySet="n_restrict_product">
+                <ScalarProperty Name="number_product" ColumnName="number_product" />
+                <ScalarProperty Name="employee_id" ColumnName="employee_id" />
+                <ScalarProperty Name="contract_id" ColumnName="contract_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="n_holiday">
+            <EntityTypeMapping TypeName="hrmModel.n_holiday">
+              <MappingFragment StoreEntitySet="n_holiday">
+                <ScalarProperty Name="holiday_name" ColumnName="holiday_name" />
+                <ScalarProperty Name="day" ColumnName="day" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

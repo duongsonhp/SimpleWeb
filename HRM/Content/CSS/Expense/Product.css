@@ -1,0 +1,21 @@
+﻿.product-name {
+    font-weight: bold;
+    font-size: 25px;
+    color: #083c80;
+}
+
+.product-prefixcode {
+    font-size: 15px;
+    color: #4e5661
+}
+
+.box-product {
+    text-align: center;
+    width: 20vw;
+    height: 200px;
+    cursor: pointer
+}
+
+.mix-ava-actions {
+    justify-content: center
+}

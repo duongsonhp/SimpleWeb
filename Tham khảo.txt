@@ -1,0 +1,2 @@
+1. Tạo lớp trừu tượng để CRUD đối tượng trong CSDL
+	Link: https://www.c-sharpcorner.com/article/generic-repository-pattern-in-asp-net-core/

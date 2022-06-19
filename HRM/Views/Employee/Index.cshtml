@@ -1,0 +1,1419 @@
+﻿@{
+    ViewBag.Title = "Nhân sự";
+}
+
+<div class="contain-toolbar d-flex justify-content-between">
+    <div class="contain-action">
+        <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#modal-create-employee" id="btn-create-employee">Tạo mới</button>
+    </div>
+    <div class="contain-filter d-flex justify-content-center">
+        <div class="contain-search">
+            <input class="form-control" type="text" placeholder="Tìm kiếm ...">
+        </div>
+        <div class="contain-condition">
+            <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="drop-condition" data-bs-toggle="dropdown" aria-expanded="false">
+                    Lọc theo
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="drop-condition">
+                    <li><a class="dropdown-item" href="#">Phòng ban</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="contain-grid-employee">
+    @*<div class="row-employee">
+            <div class="box-employee">
+                <div class="ava-employee"></div>
+                <div class="contain-info-employee">
+                    <div class="line-info-employee" id="employee-name"></div>
+                    <div class="line-info-employee" id="employee-jobtitle"></div>
+                    <div class="line-info-employee" id="employee-dept"></div>
+                </div>
+            </div>
+            <div class="box-employee"></div>
+            <div class="box-employee"></div>
+            <div class="box-employee"></div>
+        </div>*@
+
+
+    @*<div class="row-employee">
+        </div>*@
+</div>
+<div class="modal fade" id="modal-create-employee" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document" id="dialogmodal-create-employee">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Nhân viên mới</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="d-flex justify-content-between row-emp">
+                        <div>
+                            <div class="d-flex justify-content-start">
+                                <div class="label">
+                                    <label>Họ & tên đệm</label>
+                                </div>
+                                <div>
+                                    <input type="text" class="form-control" id="textbox-lastname" aria-describedby="emailHelp" placeholder="VD: Nguyễn Văn">
+                                </div>
+                            </div>
+                            <div>
+                                <small id="warn-lastname" class="form-text text-muted warn" error="false">Họ và tên đệm không quá 200 kí tự và không để trống</small>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="d-flex justify-content-start">
+                                <div class="label">
+                                    <label>Tên</label>
+                                </div>
+                                <div>
+                                    <input type="text" class="form-control" id="textbox-firstname" placeholder="VD: An">
+                                </div>
+                            </div>
+                            <div>
+                                <small id="warn-firstname" class="form-text text-muted warn" error="false">Tên đệm không quá 200 kí tự và không để trống</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-between row-emp">
+                        <div>
+                            <div class="dropdown">
+                                <button class="btn btn-secondary dropdown-toggle" type="button" id="drop-martial" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Tình trạng hôn nhân
+                                </button>
+                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="drop-martial">
+                                    <div class="dropdown-item">
+                                        <span class="pre-selected">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-lg" viewBox="0 0 16 16">
+                                                <path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022Z" />
+                                            </svg>
+                                        </span>Độc thân
+                                    </div>
+                                    <div class="dropdown-item">
+                                        <span class="pre-selected">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-lg" viewBox="0 0 16 16">
+                                                <path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022Z" />
+                                            </svg>
+                                        </span>Đã kết hôn
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="d-flex justify-content-start">
+                                <div class="label">
+                                    <label for="textbox-children">Số con cái</label>
+                                </div>
+                                <div>
+                                    <input type="text" class="form-control" id="textbox-children" placeholder="VD: 2">
+                                </div>
+                            </div>
+                            <div>
+                                <small id="warn-children" class="form-text text-muted warn" error="false">Số con cái phải là số tự nhiên</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-between row-emp">
+                        <div>
+                            <div class="dropdown">
+                                <button class="btn btn-secondary dropdown-toggle" type="button" id="drop-degree" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Học vị
+                                </button>
+                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="drop-degree">
+                                    <div class="dropdown-item">
+                                        <span class="pre-selected">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-lg" viewBox="0 0 16 16">
+                                                <path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022Z" />
+                                            </svg>
+                                        </span>Tốt nghiệp THCS
+                                    </div>
+                                    <div class="dropdown-item">
+                                        <span class="pre-selected">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-lg" viewBox="0 0 16 16">
+                                                <path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022Z" />
+                                            </svg>
+                                        </span>Tốt nghiệp THPT
+                                    </div>
+                                    <div class="dropdown-item">
+                                        <span class="pre-selected">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-lg" viewBox="0 0 16 16">
+                                                <path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022Z" />
+                                            </svg>
+                                        </span>Cử nhân
+                                    </div>
+                                    <div class="dropdown-item">
+                                        <span class="pre-selected">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-lg" viewBox="0 0 16 16">
+                                                <path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022Z" />
+                                            </svg>
+                                        </span>Kĩ sư
+                                    </div>
+                                    <div class="dropdown-item">
+                                        <span class="pre-selected">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-lg" viewBox="0 0 16 16">
+                                                <path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022Z" />
+                                            </svg>
+                                        </span>Tốt nghiệp trung cấp
+                                    </div>
+                                    <div class="dropdown-item">
+                                        <span class="pre-selected">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-lg" viewBox="0 0 16 16">
+                                                <path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022Z" />
+                                            </svg>
+                                        </span>Tốt nghiệp cao đẳng
+                                    </div>
+                                    <div class="dropdown-item">
+                                        <span class="pre-selected">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-lg" viewBox="0 0 16 16">
+                                                <path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022Z" />
+                                            </svg>
+                                        </span>Tốt nghiệp trường nghề
+                                    </div>
+                                    <div class="dropdown-item">
+                                        <span class="pre-selected">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-lg" viewBox="0 0 16 16">
+                                                <path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022Z" />
+                                            </svg>
+                                        </span>Cử nhân thực hành
+                                    </div>
+                                    <div class="dropdown-item">
+                                        <span class="pre-selected">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-lg" viewBox="0 0 16 16">
+                                                <path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022Z" />
+                                            </svg>
+                                        </span>Kĩ sư thực hành
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="d-flex justify-content-start">
+                                <div class="label">
+                                    <label for="textbox-major">Ngành học</label>
+                                </div>
+                                <div>
+                                    <input type="email" class="form-control" id="textbox-major" placeholder="VD: Khoa học máy tính">
+                                </div>
+                            </div>
+                            <div>
+                                <small id="warn-major" class="form-text text-muted warn" error="false">Ngành học không quá 200 kí tự và không để trống</small>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="d-flex justify-content-start">
+                                <div class="label">
+                                    <label for="textbox-college">Đại học/Cao đẳng</label>
+                                </div>
+                                <div>
+                                    <input type="text" class="form-control" id="textbox-college" placeholder="VD: Đại học công nghiệp">
+                                </div>
+                            </div>
+                            <div>
+                                <small id="warn-college" class="form-text text-muted warn" error="false">Đại học/Cao đẳng không quá 200 kí tự và không để trống</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="d-flex justify-content-start row-emp">
+                            <div class="label">
+                                <label for="textbox-bank">Tài khoản ngân hàng</label>
+                            </div>
+                            <div>
+                                <input type="text" class="form-control" id="textbox-bank" placeholder="VD: 12410002327707">
+                            </div>
+                        </div>
+                        <div>
+                            <small id="warn-bank" class="form-text text-muted warn" error="false">Số TK ngân hàng gồm tối đa 20 chữ số, không để trống</small>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-between row-emp">
+                        <div>
+                            <div class="dropdown">
+                                <button class="btn btn-secondary dropdown-toggle" type="button" id="drop-department" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Phòng ban
+                                </button>
+                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="drop-department">
+                                    <div class="dropdown-item"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="dropdown">
+                                <button class="btn btn-secondary dropdown-toggle" type="button" id="drop-title" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Chức danh
+                                </button>
+                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="drop-title">
+                                    <div class="dropdown-item"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-between row-emp">
+                        <div>
+                            <div class="dropdown">
+                                <button class="btn btn-secondary dropdown-toggle drop-employee" type="button" id="drop-manager" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Người quản lí
+                                </button>
+                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="drop-manager">
+                                    <div class="dropdown-item"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="dropdown">
+                                <button class="btn btn-secondary dropdown-toggle drop-employee" type="button" id="drop-time-manager" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Người quản lí thời gian
+                                </button>
+                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="drop-time-manager">
+                                    <div class="dropdown-item"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="dropdown">
+                                <button class="btn btn-secondary dropdown-toggle  drop-employee" type="button" id="drop-expense-manager" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Người quản lí chi phí
+                                </button>
+                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="drop-expense-manager">
+                                    <div class="dropdown-item"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-start row-emp">
+                        <div>
+                            <div class="d-flex justify-content-start">
+                                <div class="label">
+                                    <label for="textbox-distance">Khoảng cách từ nhà tới công ti</label>
+                                </div>
+                                <div>
+                                    <input class="form-control" type="text" placeholder="VD: 30" id="textbox-distance">
+                                </div>
+                            </div>
+                            <div>
+                                <span>m</span>
+                            </div>
+                        </div>
+                        <div>
+                            <small id="warn-distance" class="form-text text-muted warn" error="false">Khoảng cách từ nhà tới công ti phải là số không âm</small>
+                        </div>
+                    </div>
+                    <div class="row-emp">
+                        <div class="dropdown">
+                            <button class="btn btn-secondary dropdown-toggle" type="button" id="drop-gender" data-bs-toggle="dropdown" aria-expanded="false">
+                                Giới tính
+                            </button>
+                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="drop-gender">
+                                <div class="dropdown-item">
+                                    <span class="pre-selected">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-lg" viewBox="0 0 16 16">
+                                            <path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022Z" />
+                                        </svg>
+                                    </span>Nam
+                                </div>
+                                <div class="dropdown-item">
+                                    <span class="pre-selected">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-lg" viewBox="0 0 16 16">
+                                            <path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022Z" />
+                                        </svg>
+                                    </span>Nữ
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-between row-emp">
+                        <div class="d-flex justify-content-start">
+                            <div class="label">
+                                <label for="calendar-birth">Ngày sinh</label>
+                            </div>
+                            <div>
+                                <input type="date" id="calendar-birth" class="form-control" name="birthday">
+                            </div>
+                        </div>
+                        <div>
+                            <div class="d-flex justify-content-start">
+                                <div class="label">
+                                    <label for="textbox-birthwhere">Nơi sinh</label>
+                                </div>
+                                <div>
+                                    <input type="text" class="form-control" id="textbox-birthwhere" aria-describedby="emailHelp" placeholder="VD: Nguyễn Văn">
+                                </div>
+                            </div>
+                            <div>
+                                <small id="warn-birthwhere" class="form-text text-muted warn" error="false">Nơi sinh không quá 200 kí tự, không để trống</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row-emp">
+                        <div>
+                            <div class="d-flex justify-content-start">
+                                <div class="label">
+                                    <label for="textbox-phone">Điện thoại</label>
+                                </div>
+                                <div>
+                                    <input type="text" class="form-control" id="textbox-phone" placeholder="VD: 0334923391">
+                                </div>
+                            </div>
+                            <div>
+                                <small id="warn-phone" class="form-text text-muted warn" error="false">Số điện thoại có tối đa 20 chữ số, không để trống</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-between row-emp">
+                        <div>
+                            <div class="d-flex justify-content-start">
+                                <div class="label">
+                                    <label for="textbox-phone-emergency">Điện thoại liên lạc khi khẩn cấp</label>
+                                </div>
+                                <div>
+                                    <input type="text" class="form-control" id="textbox-phone-emergency" placeholder="VD: 0334923391">
+                                </div>
+                            </div>
+                            <div>
+                                <small id="warn-phone-emergency" class="form-text text-muted warn" error="false">Số điện thoại có tối đa 20 chữ số, không để trống</small>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="d-flex justify-content-start">
+                                <div class="label">
+                                    <label for="textbox-contact-emergency">Người có thể liên lạc khi khẩn cấp</label>
+                                </div>
+                                <div>
+                                    <input type="text" class="form-control" id="textbox-contact-emergency" placeholder="VD: Bố Nguyễn Văn Bình">
+                                </div>
+                            </div>
+                            <div>
+                                <small id="warn-contact-emergency" class="form-text text-muted warn" error="false">Tên người liên lạc không quá 200 kí tự, không để trống</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-between row-emp">
+                        <div>
+                            <div class="d-flex justify-content-start">
+                                <div class="label">
+                                    <label for="textbox-address">Địa chỉ</label>
+                                </div>
+                                <div>
+                                    <input type="text" class="form-control" id="textbox-address" placeholder="VD: Số 1, Đại Cồ Việt, Hà Nội">
+                                </div>
+                            </div>
+                            <div>
+                                <small id="warn-address" class="form-text text-muted warn" error="false">Địa chỉ không quá 200 kí tự, không để trống</small>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="d-flex justify-content-start">
+                                <div class="label">
+                                    <label for="textbox-mail">Email</label>
+                                </div>
+                                <div>
+                                    <input type="email" class="form-control" id="textbox-mail" placeholder="VD: nguyenvanan@gmail.com">
+                                </div>
+                            </div>
+                            <div>
+                                <small id="warn-mail" class="form-text text-muted warn" error="false">Email phải đúng định dạng, không quá 200 kí tự, không để trống</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row-emp">
+                        <div>
+                            <div class="d-flex justify-content-start">
+                                <div class="label">
+                                    <label for="textbox-identity-card">Số CMND/CCCD</label>
+                                </div>
+                                <div>
+                                    <input type="text" class="form-control" id="textbox-identity-card" placeholder="VD: 123456789999">
+                                </div>
+                            </div>
+                            <div>
+                                <small id="warn-identity-card" class="form-text text-muted warn" error="false">Số CMND/CCCD chỉ gồm tối đa 20 chữ số, không để trống</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row-emp">
+                        <div>
+                            <div class="d-flex justify-content-start">
+                                <div class="label">
+                                    <label>Ngày công tiêu chuẩn</label>
+                                </div>
+                                <div>
+                                    <table class="table" id="table-standard-work-time-for-emp">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">Tháng</th>
+                                                <th scope="col">Ngày công tiêu chuẩn</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <th scope="row">Tháng 1</th>
+                                                <td><a href="#" class="standard-work-time-31 standard-work-time"></a></td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row">Tháng 2</th>
+                                                <td><a href="#" class="standard-work-time-28 standard-work-time"></a></td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row">Tháng 3</th>
+                                                <td><a href="#" class="standard-work-time-31 standard-work-time"></a></td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row">Tháng 4</th>
+                                                <td><a href="#" class="standard-work-time-30 standard-work-time"></a></td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row">Tháng 5</th>
+                                                <td><a href="#" class="standard-work-time-31 standard-work-time"></a></td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row">Tháng 6</th>
+                                                <td><a href="#" class="standard-work-time-30 standard-work-time"></a></td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row">Tháng 7</th>
+                                                <td><a href="#" class="standard-work-time-31 standard-work-time"></a></td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row">Tháng 8</th>
+                                                <td><a href="#" class="standard-work-time-31 standard-work-time"></a></td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row">Tháng 9</th>
+                                                <td><a href="#" class="standard-work-time-30 standard-work-time"></a></td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row">Tháng 10</th>
+                                                <td><a href="#" class="standard-work-time-31 standard-work-time"></a></td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row">Tháng 11</th>
+                                                <td><a href="#" class="standard-work-time-30 standard-work-time"></a></td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row">Tháng 12</th>
+                                                <td><a href="#" class="standard-work-time-31 standard-work-time"></a></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    @*<button type="submit" class="btn btn-primary">Lưu</button>*@
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                <button type="button" class="btn btn-primary" id="btn-save-employee">Lưu</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modal-view-employee" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-emp="">
+    <div class="modal-dialog" role="document" id="dialogmodal-view-employee">
+        <div class="modal-content">
+            <div class="modal-header">
+                @*<h5 class="modal-title" id="exampleModalLabel">Nhân viên mới</h5>*@
+                <div class="group-action-employee d-flex justify-content-start">
+                    <button type="button" class="btn btn-primary" id="btn-modify-employee">Sửa</button>
+                    <button type="button" class="btn btn-danger" id="btn-delete_employee">Xóa</button>
+                </div>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                @*<form>
+                        <div class="form-group">
+                            <label for="recipient-name" class="col-form-label">Recipient:</label>
+                            <input type="text" class="form-control" id="recipient-name">
+                        </div>
+                        <div class="form-group">
+                            <label for="message-text" class="col-form-label">Message:</label>
+                            <textarea class="form-control" id="message-text"></textarea>
+                        </div>
+                    </form>*@
+                <form>
+                    <div class="d-flex justify-content-between row-emp">
+                        <div>
+                            <div class="d-flex justify-content-start">
+                                <div class="label">
+                                    <label>Họ & tên đệm</label>
+                                </div>
+                                <div>
+                                    <input type="text" class="form-control" id="textbox-view-lastname" aria-describedby="emailHelp">
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="d-flex justify-content-start">
+                                <div class="label">
+                                    <label>Tên</label>
+                                </div>
+                                <div>
+                                    <input type="text" class="form-control" id="textbox-view-firstname">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-between row-emp">
+                        <div>
+                            <div class="d-flex justify-content-start">
+                                <div class="label">
+                                    <label>Tình trạng hôn nhân</label>
+                                </div>
+                                <div>
+                                    <input type="text" class="form-control" id="textbox-view-material" aria-describedby="emailHelp">
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="d-flex justify-content-start">
+                                <div class="label">
+                                    <label>Số con cái</label>
+                                </div>
+                                <div>
+                                    <input type="text" class="form-control" id="textbox-view-children">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-between row-emp">
+                        <div>
+                            <div class="d-flex justify-content-start">
+                                <div class="label">
+                                    <label>Học vị</label>
+                                </div>
+                                <div>
+                                    <input type="text" class="form-control" id="textbox-view-degree" aria-describedby="emailHelp">
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="d-flex justify-content-start">
+                                <div class="label">
+                                    <label>Ngành học</label>
+                                </div>
+                                <div>
+                                    <input type="text" class="form-control" id="textbox-view-major">
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="d-flex justify-content-start">
+                                <div class="label">
+                                    <label>Đại học/Cao đẳng</label>
+                                </div>
+                                <div>
+                                    <input type="text" class="form-control" id="textbox-view-college">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="d-flex justify-content-start row-emp">
+                            <div class="label">
+                                <label for="textbox-view-bank">Tài khoản ngân hàng</label>
+                            </div>
+                            <div>
+                                <input type="text" class="form-control" id="textbox-view-bank">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-between row-emp">
+                        <div>
+                            <div class="d-flex justify-content-start">
+                                <div class="label">
+                                    <label>Phòng ban</label>
+                                </div>
+                                <div>
+                                    <input type="text" class="form-control" id="textbox-view-department">
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="d-flex justify-content-start">
+                                <div class="label">
+                                    <label>Chức danh</label>
+                                </div>
+                                <div>
+                                    <input type="text" class="form-control" id="textbox-view-title">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-between row-emp">
+                        <div>
+                            <div class="d-flex justify-content-start">
+                                <div class="label">
+                                    <label>Người quản lí</label>
+                                </div>
+                                <div>
+                                    <input type="text" class="form-control" id="textbox-view-manager">
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="d-flex justify-content-start">
+                                <div class="label">
+                                    <label>Người quản lí thời gian</label>
+                                </div>
+                                <div>
+                                    <input type="text" class="form-control" id="textbox-view-time-manager">
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="d-flex justify-content-start">
+                                <div class="label">
+                                    <label>Người quản lí chi phí</label>
+                                </div>
+                                <div>
+                                    <input type="text" class="form-control" id="textbox-view-expense-manager" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-start row-emp">
+                        <div>
+                            <div class="d-flex justify-content-start">
+                                <div class="label">
+                                    <label>Khoảng cách từ nhà tới công ti</label>
+                                </div>
+                                <div>
+                                    <input type="text" class="form-control" id="textbox-view-distance">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row-emp">
+                        <div>
+                            <div class="d-flex justify-content-start">
+                                <div class="label">
+                                    <label>Giới tính</label>
+                                </div>
+                                <div>
+                                    <input type="text" class="form-control" id="textbox-view-gender">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-between row-emp">
+                        <div>
+                            <div class="d-flex justify-content-start">
+                                <div class="label">
+                                    <label>Ngày sinh</label>
+                                </div>
+                                <div>
+                                    <input type="text" class="form-control" id="textbox-view-birth">
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="d-flex justify-content-start">
+                                <div class="label">
+                                    <label>Nơi sinh</label>
+                                </div>
+                                <div>
+                                    <input type="text" class="form-control" id="textbox-view-birthwhere">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row-emp">
+                        <div>
+                            <div class="d-flex justify-content-start">
+                                <div class="label">
+                                    <label>Điện thoại</label>
+                                </div>
+                                <div>
+                                    <input type="text" class="form-control" id="textbox-view-phone">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-between row-emp">
+                        <div>
+                            <div class="d-flex justify-content-start">
+                                <div class="label">
+                                    <label>Điện thoại liên lạc khi khẩn cấp</label>
+                                </div>
+                                <div>
+                                    <input type="text" class="form-control" id="textbox-view-phone-emergency">
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="d-flex justify-content-start">
+                                <div class="label">
+                                    <label>Người có thể liên lạc khi khẩn cấp</label>
+                                </div>
+                                <div>
+                                    <input type="text" class="form-control" id="textbox-view-contact-emergency">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-between row-emp">
+                        <div>
+                            <div class="d-flex justify-content-start">
+                                <div class="label">
+                                    <label>Địa chỉ</label>
+                                </div>
+                                <div>
+                                    <input type="text" class="form-control" id="textbox-view-address">
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="d-flex justify-content-start">
+                                <div class="label">
+                                    <label>Email</label>
+                                </div>
+                                <div>
+                                    <input type="text" class="form-control" id="textbox-view-mail">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row-emp">
+                        <div>
+                            <div class="d-flex justify-content-start">
+                                <div class="label">
+                                    <label>Số CMND/CCCD</label>
+                                </div>
+                                <div>
+                                    <input type="text" class="form-control" id="textbox-view-identity-card">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    @*<button type="submit" class="btn btn-primary">Lưu</button>*@
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                @*<button type="button" class="btn btn-primary" id="btn-modify-employee">Sửa</button>*@
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modal-modify-employee" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-emp-id="">
+    <div class="modal-dialog" role="document" id="dialogmodal-modify-employee">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Nhân viên mới</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                @*<form>
+                        <div class="form-group">
+                            <label for="recipient-name" class="col-form-label">Recipient:</label>
+                            <input type="text" class="form-control" id="recipient-name">
+                        </div>
+                        <div class="form-group">
+                            <label for="message-text" class="col-form-label">Message:</label>
+                            <textarea class="form-control" id="message-text"></textarea>
+                        </div>
+                    </form>*@
+                <form>
+                    <div class="d-flex justify-content-between row-emp">
+                        <div>
+                            <div class="d-flex justify-content-start">
+                                <div class="label">
+                                    <label>Họ & tên đệm</label>
+                                </div>
+                                <div>
+                                    <input type="text" class="form-control" id="textbox-modify-lastname" aria-describedby="emailHelp" placeholder="VD: Nguyễn Văn">
+                                </div>
+                            </div>
+                            <div>
+                                <small id="warn-modify-lastname" class="form-text text-muted warn" error="false">Họ và tên đệm không quá 200 kí tự và không để trống</small>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="d-flex justify-content-start">
+                                <div class="label">
+                                    <label>Tên</label>
+                                </div>
+                                <div>
+                                    <input type="text" class="form-control" id="textbox-modify-firstname" placeholder="VD: An">
+                                </div>
+                            </div>
+                            <div>
+                                <small id="warn-modify-firstname" class="form-text text-muted warn" error="false">Tên đệm không quá 200 kí tự và không để trống</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-between row-emp">
+                        <div>
+                            <div class="dropdown">
+                                <button class="btn btn-secondary dropdown-modify-toggle" type="button" id="drop-modify-martial" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Tình trạng hôn nhân
+                                </button>
+                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="drop-modify-martial">
+                                    <div class="dropdown-item">
+                                        <span class="pre-selected">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-lg" viewBox="0 0 16 16">
+                                                <path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022Z" />
+                                            </svg>
+                                        </span>Độc thân
+                                    </div>
+                                    <div class="dropdown-item">
+                                        <span class="pre-selected">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-lg" viewBox="0 0 16 16">
+                                                <path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022Z" />
+                                            </svg>
+                                        </span>Đã kết hôn
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="d-flex justify-content-start">
+                                <div class="label">
+                                    <label for="textbox-children">Số con cái</label>
+                                </div>
+                                <div>
+                                    <input type="text" class="form-control" id="textbox-modify-children" placeholder="VD: 2">
+                                </div>
+                            </div>
+                            <div>
+                                <small id="warn-modify-children" class="form-text text-muted warn" error="false">Số con cái phải là số tự nhiên</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-between row-emp">
+                        <div>
+                            <div class="dropdown">
+                                <button class="btn btn-secondary dropdown-toggle" type="button" id="drop-modify-degree" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Học vị
+                                </button>
+                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="drop-modify-degree">
+                                    <div class="dropdown-item">
+                                        <span class="pre-selected">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-lg" viewBox="0 0 16 16">
+                                                <path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022Z" />
+                                            </svg>
+                                        </span>Tốt nghiệp THCS
+                                    </div>
+                                    <div class="dropdown-item">
+                                        <span class="pre-selected">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-lg" viewBox="0 0 16 16">
+                                                <path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022Z" />
+                                            </svg>
+                                        </span>Tốt nghiệp THPT
+                                    </div>
+                                    <div class="dropdown-item">
+                                        <span class="pre-selected">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-lg" viewBox="0 0 16 16">
+                                                <path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022Z" />
+                                            </svg>
+                                        </span>Cử nhân
+                                    </div>
+                                    <div class="dropdown-item">
+                                        <span class="pre-selected">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-lg" viewBox="0 0 16 16">
+                                                <path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022Z" />
+                                            </svg>
+                                        </span>Kĩ sư
+                                    </div>
+                                    <div class="dropdown-item">
+                                        <span class="pre-selected">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-lg" viewBox="0 0 16 16">
+                                                <path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022Z" />
+                                            </svg>
+                                        </span>Tốt nghiệp trung cấp
+                                    </div>
+                                    <div class="dropdown-item">
+                                        <span class="pre-selected">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-lg" viewBox="0 0 16 16">
+                                                <path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022Z" />
+                                            </svg>
+                                        </span>Tốt nghiệp cao đẳng
+                                    </div>
+                                    <div class="dropdown-item">
+                                        <span class="pre-selected">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-lg" viewBox="0 0 16 16">
+                                                <path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022Z" />
+                                            </svg>
+                                        </span>Tốt nghiệp trường nghề
+                                    </div>
+                                    <div class="dropdown-item">
+                                        <span class="pre-selected">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-lg" viewBox="0 0 16 16">
+                                                <path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022Z" />
+                                            </svg>
+                                        </span>Cử nhân thực hành
+                                    </div>
+                                    <div class="dropdown-item">
+                                        <span class="pre-selected">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-lg" viewBox="0 0 16 16">
+                                                <path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022Z" />
+                                            </svg>
+                                        </span>Kĩ sư thực hành
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="d-flex justify-content-start">
+                                <div class="label">
+                                    <label for="textbox-modify-major">Ngành học</label>
+                                </div>
+                                <div>
+                                    <input type="email" class="form-control" id="textbox-modify-major" placeholder="VD: Khoa học máy tính">
+                                </div>
+                            </div>
+                            <div>
+                                <small id="warn-modify-major" class="form-text text-muted warn" error="false">Ngành học không quá 200 kí tự và không để trống</small>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="d-flex justify-content-start">
+                                <div class="label">
+                                    <label for="textbox-modify-college">Đại học/Cao đẳng</label>
+                                </div>
+                                <div>
+                                    <input type="text" class="form-control" id="textbox-modify-college" placeholder="VD: Đại học công nghiệp">
+                                </div>
+                            </div>
+                            <div>
+                                <small id="warn-modify-college" class="form-text text-muted warn" error="false">Đại học/Cao đẳng không quá 200 kí tự và không để trống</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="d-flex justify-content-start row-emp">
+                            <div class="label">
+                                <label for="textbox-modify-bank">Tài khoản ngân hàng</label>
+                            </div>
+                            <div>
+                                <input type="text" class="form-control" id="textbox-modify-bank" placeholder="VD: 12410002327707">
+                            </div>
+                        </div>
+                        <div>
+                            <small id="warn-modify-bank" class="form-text text-muted warn" error="false">Số TK ngân hàng gồm tối đa 20 chữ số, không để trống</small>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-between row-emp">
+                        <div>
+                            <div class="dropdown">
+                                <button class="btn btn-secondary dropdown-toggle" type="button" id="drop-modify-department" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Phòng ban
+                                </button>
+                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="drop-modify-department">
+                                    <div class="dropdown-item"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="dropdown">
+                                <button class="btn btn-secondary dropdown-toggle" type="button" id="drop-modify-title" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Chức danh
+                                </button>
+                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="drop-modify-title">
+                                    <div class="dropdown-item"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-between row-emp">
+                        <div>
+                            <div class="dropdown">
+                                <button class="btn btn-secondary dropdown-toggle drop-employee" type="button" id="drop-modify-manager" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Người quản lí
+                                </button>
+                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="drop-modify-manager">
+                                    <div class="dropdown-item"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="dropdown">
+                                <button class="btn btn-secondary dropdown-toggle drop-employee" type="button" id="drop-modify-time-manager" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Người quản lí thời gian
+                                </button>
+                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="drop-modify-time-manager">
+                                    <div class="dropdown-item"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="dropdown">
+                                <button class="btn btn-secondary dropdown-toggle  drop-employee" type="button" id="drop-modify-expense-manager" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Người quản lí chi phí
+                                </button>
+                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="drop-modify-expense-manager">
+                                    <div class="dropdown-item"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-start row-emp">
+                        <div>
+                            <div class="d-flex justify-content-start">
+                                <div class="label">
+                                    <label for="textbox-modify-distance">Khoảng cách từ nhà tới công ti</label>
+                                </div>
+                                <div>
+                                    <input class="form-control" type="text" placeholder="VD: 30" id="textbox-modify-distance">
+                                </div>
+                            </div>
+                            <div>
+                                <span>m</span>
+                            </div>
+                        </div>
+                        <div>
+                            <small id="warn-modify-distance" class="form-text text-muted warn" error="false">Khoảng cách từ nhà tới công ti phải là số không âm</small>
+                        </div>
+                    </div>
+                    <div class="row-emp">
+                        <div class="dropdown">
+                            <button class="btn btn-secondary dropdown-toggle" type="button" id="drop-modify-gender" data-bs-toggle="dropdown" aria-expanded="false">
+                                Giới tính
+                            </button>
+                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="drop-modify-gender">
+                                <div class="dropdown-item">
+                                    <span class="pre-selected">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-lg" viewBox="0 0 16 16">
+                                            <path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022Z" />
+                                        </svg>
+                                    </span>Nam
+                                </div>
+                                <div class="dropdown-item">
+                                    <span class="pre-selected">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-lg" viewBox="0 0 16 16">
+                                            <path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022Z" />
+                                        </svg>
+                                    </span>Nữ
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-between row-emp">
+                        <div class="d-flex justify-content-start">
+                            <div class="label">
+                                <label for="calendar-modify-birth">Ngày sinh</label>
+                            </div>
+                            <div>
+                                <input type="date" id="calendar-modify-birth" class="form-control" name="birthday">
+                            </div>
+                        </div>
+                        <div>
+                            <div class="d-flex justify-content-start">
+                                <div class="label">
+                                    <label for="textbox-modify-birthwhere">Nơi sinh</label>
+                                </div>
+                                <div>
+                                    <input type="text" class="form-control" id="textbox-modify-birthwhere" aria-describedby="emailHelp" placeholder="VD: Nguyễn Văn">
+                                </div>
+                            </div>
+                            <div>
+                                <small id="warn-modify-birthwhere" class="form-text text-muted warn" error="false">Nơi sinh không quá 200 kí tự, không để trống</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row-emp">
+                        <div>
+                            <div class="d-flex justify-content-start">
+                                <div class="label">
+                                    <label for="textbox-modify-phone">Điện thoại</label>
+                                </div>
+                                <div>
+                                    <input type="text" class="form-control" id="textbox-modify-phone" placeholder="VD: 0334923391">
+                                </div>
+                            </div>
+                            <div>
+                                <small id="warn-modify-phone" class="form-text text-muted warn" error="false">Số điện thoại có tối đa 20 chữ số, không để trống</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-between row-emp">
+                        <div>
+                            <div class="d-flex justify-content-start">
+                                <div class="label">
+                                    <label for="textbox-modify-phone-emergency">Điện thoại liên lạc khi khẩn cấp</label>
+                                </div>
+                                <div>
+                                    <input type="text" class="form-control" id="textbox-modify-phone-emergency" placeholder="VD: 0334923391">
+                                </div>
+                            </div>
+                            <div>
+                                <small id="warn-modify-phone-emergency" class="form-text text-muted warn" error="false">Số điện thoại có tối đa 20 chữ số, không để trống</small>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="d-flex justify-content-start">
+                                <div class="label">
+                                    <label for="textbox-modify-contact-emergency">Người có thể liên lạc khi khẩn cấp</label>
+                                </div>
+                                <div>
+                                    <input type="text" class="form-control" id="textbox-modify-contact-emergency" placeholder="VD: Bố Nguyễn Văn Bình">
+                                </div>
+                            </div>
+                            <div>
+                                <small id="warn-modify-contact-emergency" class="form-text text-muted warn" error="false">Tên người liên lạc không quá 200 kí tự, không để trống</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-between row-emp">
+                        <div>
+                            <div class="d-flex justify-content-start">
+                                <div class="label">
+                                    <label for="textbox-modify-address">Địa chỉ</label>
+                                </div>
+                                <div>
+                                    <input type="text" class="form-control" id="textbox-modify-address" placeholder="VD: Số 1, Đại Cồ Việt, Hà Nội">
+                                </div>
+                            </div>
+                            <div>
+                                <small id="warn-modify-address" class="form-text text-muted warn" error="false">Địa chỉ không quá 200 kí tự, không để trống</small>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="d-flex justify-content-start">
+                                <div class="label">
+                                    <label for="textbox-modify-mail">Email</label>
+                                </div>
+                                <div>
+                                    <input type="email" class="form-control" id="textbox-modify-mail" placeholder="VD: nguyenvanan@gmail.com">
+                                </div>
+                            </div>
+                            <div>
+                                <small id="warn-modify-mail" class="form-text text-muted warn" error="false">Email phải đúng định dạng, không quá 200 kí tự, không để trống</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row-emp">
+                        <div>
+                            <div class="d-flex justify-content-start">
+                                <div class="label">
+                                    <label for="textbox-modify-identity-card">Số CMND/CCCD</label>
+                                </div>
+                                <div>
+                                    <input type="text" class="form-control" id="textbox-modify-identity-card" placeholder="VD: 123456789999">
+                                </div>
+                            </div>
+                            <div>
+                                <small id="warn-modify-identity-card" class="form-text text-muted warn" error="false">Số CMND/CCCD chỉ gồm tối đa 20 chữ số, không để trống</small>
+                            </div>
+                        </div>
+                    </div>
+                    @*<button type="submit" class="btn btn-primary">Lưu</button>*@
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                <button type="button" class="btn btn-primary" id="btn-save-modify-employee">Cập nhật</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modal-view-standard-work-time" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document" id="dialogmodal-view-standard-work-time">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel"></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="box-abstract-employee">
+                    <div class="box-abstract-employee-id d-flex justify-content-between">
+                        <div class="label-abstract-employee-id">Mã nhân viên:</div>
+                        <div class="text-abstract-employee-id"></div>
+                    </div>
+                    <div class="box-abstract-employee-fullname d-flex justify-content-between">
+                        <div class="label-abstract-employee-fullname">Tên nhân viên:</div>
+                        <div class="text-abstract-employee-fullname"></div>
+                    </div>
+                </div>
+                <div class="table-view-standard-work-employee">
+                    <table class="table" id="table-show-standard-work-time-for-emp">
+                        <thead>
+                            <tr>
+                                <th scope="col">Tháng</th>
+                                <th scope="col">Ngày công tiêu chuẩn</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th scope="row">Tháng 1</th>
+                                <td><a href="#" class="show-standard-work-time"></a></td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Tháng 2</th>
+                                <td><a href="#" class="show-standard-work-time"></a></td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Tháng 3</th>
+                                <td><a href="#" class="show-standard-work-time"></a></td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Tháng 4</th>
+                                <td><a href="#" class="show-standard-work-time"></a></td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Tháng 5</th>
+                                <td><a href="#" class="show-standard-work-time"></a></td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Tháng 6</th>
+                                <td><a href="#" class="show-standard-work-time"></a></td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Tháng 7</th>
+                                <td><a href="#" class="show-standard-work-time"></a></td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Tháng 8</th>
+                                <td><a href="#" class="show-standard-work-time"></a></td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Tháng 9</th>
+                                <td><a href="#" class="show-standard-work-time"></a></td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Tháng 10</th>
+                                <td><a href="#" class="show-standard-work-time"></a></td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Tháng 11</th>
+                                <td><a href="#" class="show-standard-work-time"></a></td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Tháng 12</th>
+                                <td><a href="#" class="show-standard-work-time"></a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                <button type="button" class="btn btn-primary" id="btn-save-modify-standard-work-employee">Lưu thay đổi</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modal-view-modify-contract" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document" id="dialogmodal-view-modify-contract">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="group-action-employee d-flex justify-content-start">
+                    <button type="button" class="btn btn-success" id="btn-create-contract">Thêm hàng</button>
+                    <button type="button" class="btn btn-primary" id="btn-save-modify-contract">Lưu</button>
+                </div>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="box-abstract-employee">
+                    <div class="box-abstract-employee-id d-flex justify-content-between">
+                        <div class="label-abstract-employee-id">Mã nhân viên:</div>
+                        <div class="text-abstract-employee-id"></div>
+                    </div>
+                    <div class="box-abstract-employee-fullname d-flex justify-content-between">
+                        <div class="label-abstract-employee-fullname">Tên nhân viên:</div>
+                        <div class="text-abstract-employee-fullname"></div>
+                    </div>
+                </div>
+                @*<div>
+                    <button type="button" class="btn btn-success" id="btn-add-new-contract">Thêm hàng</button>
+                </div>*@
+                <div class="table-view-contracts">
+                    <table class="table" id="table-contracts">
+                        <thead>
+                            <tr>
+                                <th scope="col">ID</th>
+                                <th scope="col">Ngày bắt đầu</th>
+                                <th scope="col">Ngày kết thúc</th>
+                                <th scope="col">Lương cơ bản</th>
+                                <th scope="col">Đơn vị</th>
+                                <th scope="col">Trạng thái</th>
+                                <th scope="col">Hình thức trả lương</th>
+                                <th scope="col">Kì trả lương</th>
+                                <th scope="col">Yêu cầu đã qua đào tạo?</th>
+                                <th scope="col">Lượng sản phẩm khoán</th>
+                                <th scope="col">Sản phẩm khoán hoàn thành</th>
+                                <th scope="col"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @*<tr>
+                                <th scope="row"></th>
+                                <td><a href="#" class="contract-begin-date"></a></td>
+                                <td><a href="#" class="contract-end-date"></a></td>
+                                <td><a href="#" class="contract-basic-wage"></a></td>
+                                <td><a href="#" class="contract-unit"></a></td>
+                                <td><a href="#" class="contract-status"></a></td>
+                            </tr>*@
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modal-assign-plan" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document" id="dialogmodal-assign-plan">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="group-action-employee d-flex justify-content-start">
+                    <button type="button" class="btn btn-primary" id="btn-save-assign-plan">Lưu</button>
+                </div>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="box-abstract-employee">
+                    <div class="box-abstract-employee-id d-flex justify-content-between">
+                        <div class="label-abstract-employee-id">Mã nhân viên:</div>
+                        <div class="text-abstract-employee-id"></div>
+                    </div>
+                    <div class="box-abstract-employee-fullname d-flex justify-content-between">
+                        <div class="label-abstract-employee-fullname">Tên nhân viên:</div>
+                        <div class="text-abstract-employee-fullname"></div>
+                    </div>
+                </div>
+                <div class="box-list-plans">
+                    @*<div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" id="plan-0001">
+                        <label class="form-check-label" for="plan-0001">
+                            Plan 1
+                        </label>
+                    </div>*@
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@*<link href="~/Scripts/plugin/bootstrap3-editable-1.5.1/bootstrap3-editable/css/bootstrap-editable.css" rel="stylesheet" />
+<script src="~/Scripts/plugin/bootstrap3-editable-1.5.1/bootstrap3-editable/js/bootstrap-editable.js"></script>*@
+<script src="~/Scripts/Tools/ValidateInput.js"></script>
+<script src="~/Scripts/Tools/ProccessDate.js"></script>
+<script src="~/Scripts/Tools/GenRandom.js"></script>
+<script src="~/Scripts/Employee/employee.js"></script>
