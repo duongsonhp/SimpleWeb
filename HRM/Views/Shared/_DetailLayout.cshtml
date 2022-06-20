@@ -1,0 +1,65 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    @*@Styles.Render("~/Content/css")
+        @Scripts.Render("~/bundles/modernizr")*@
+    <link rel="stylesheet" href="~/Content/CSS/Shared/Layout.css" />
+    <link rel="stylesheet" href="~/Content/bootstrap.min.css" />
+    <link href="~/Scripts/plugin/bootstrap3-editable-1.5.1/bootstrap3-editable/css/bootstrap-editable.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/Content/CSS/Employee/Index.css" />
+    <link rel="stylesheet" href="~/Content/CSS/Expense/Product.css" />
+    <link rel="stylesheet" href="~/Content/CSS/Expense/Report.css" />
+    <link rel="stylesheet" href="~/Content/CSS/Expense/Analysis.css" />
+    <link rel="stylesheet" href="~/Content/CSS/Employee/Payroll.css" />
+    <link rel="stylesheet" href="~/Content/CSS/StandardWorkTime/Index.css" />
+    <script src="~/Scripts/jquery-3.6.0.min.js"></script>
+    <script src="~/Scripts/bootstrap.bundle.min.js"></script>
+    <script src="~/Scripts/plugin/moment/moment.js"></script>
+    <script src="~/Scripts/plugin/bootstrap3-editable-1.5.1/bootstrap3-editable/js/bootstrap-editable.js"></script>
+    <link href="~/Scripts/plugin/select2-4.0.13/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="~/Scripts/plugin/select2-4.0.13/dist/js/select2.full.min.js"></script>
+</head>
+<body>
+    <div class="contain-headpage">
+        <nav class="navbar navbar-light bg-light">
+            <div class="navbar-brand d-flex justify-content-start align-items-center" href="#">
+                <div class="banner-logo">
+                    <img src="~/Store/Pics/HRM.png" width="200" class="d-inline-block align-top" alt="">
+                </div>
+                <div class="banner-company-name">
+                    <span class="text-company-name">Human Resource Management</span>
+                </div>
+            </div>
+        </nav>
+        <nav class="navbar navbar-light bg-light d-flex justify-content-start" id="navbar-list-item">
+            <div class="item-bar active d-flex align-items-center justify-content-center">
+                <a href="/Employee/Index">Nhân viên</a>
+            </div>
+            <div class="item-bar d-flex align-items-center justify-content-center">
+                <a href="#">Ngày công chuẩn</a>
+            </div>
+            <div class="item-bar d-flex align-items-center justify-content-center">
+                <a href="#">Kế hoạch</a>
+            </div>
+            <div class="item-bar d-flex align-items-center justify-content-center">
+                <a href="#">Phòng ban</a>
+            </div>
+            <div class="item-bar d-flex align-items-center justify-content-center">
+                <a href="#">Chức danh</a>
+            </div>
+            <div class="item-bar d-flex align-items-center justify-content-center">
+                <a href="#">Tuyển dụng</a>
+            </div>
+        </nav>
+    </div>
+    @RenderBody()
+
+    @*@Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)*@
+</body>
+</html>
+<script src="~/Scripts/Shared/layout.js"></script>
