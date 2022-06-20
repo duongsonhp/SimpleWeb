@@ -145,36 +145,12 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Controllers\ApplicationController.cs" />
-    <Compile Include="Controllers\ContractController.cs" />
-    <Compile Include="Controllers\DepartmentController.cs" />
-    <Compile Include="Controllers\EmployeeController.cs" />
-    <Compile Include="Controllers\ExpenseController.cs" />
-    <Compile Include="Controllers\JobtitleController.cs" />
-    <Compile Include="Controllers\PlanController.cs" />
-    <Compile Include="Controllers\StandardWorkTimeController.cs" />
+    <Compile Include="Controllers\InformationController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\ContractEmployeeModel.cs" />
-    <Compile Include="Models\ContractProductModel.cs" />
-    <Compile Include="Models\DepartmentModel.cs" />
-    <Compile Include="Models\ExpenseModel.cs" />
-    <Compile Include="Models\ExtraWorkTimeModel.cs" />
-    <Compile Include="Models\ExtraWorkTimeStringDateModel.cs" />
-    <Compile Include="Models\FilterModel.cs" />
-    <Compile Include="Models\NewEmployeeModel.cs" />
-    <Compile Include="Models\NewProductModel.cs" />
-    <Compile Include="Models\PlanActivitiesDateTimeStringModel.cs" />
-    <Compile Include="Models\PlanActivitiesModel.cs" />
-    <Compile Include="Models\PlanModel.cs" />
-    <Compile Include="Models\ProductPerMonthModel.cs" />
-    <Compile Include="Models\ReportModel.cs" />
-    <Compile Include="Models\RequireWageModel.cs" />
-    <Compile Include="Models\StandardWorkTimeForEmployeeModel.cs" />
-    <Compile Include="Models\StringDateContractModel.cs" />
-    <Compile Include="Models\TitleModel.cs" />
-    <Compile Include="Models\TitleRecruitModel.cs" />
+    <Compile Include="Models\UpdateModel.cs" />
+    <Compile Include="Models\NewsModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Tools\GenId.cs" />
   </ItemGroup>
@@ -195,16 +171,6 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\bootstrap.rtl.css" />
     <Content Include="Content\bootstrap.rtl.min.css" />
-    <Content Include="Content\CSS\Application\Index.css" />
-    <Content Include="Content\CSS\Application\Show.css" />
-    <Content Include="Content\CSS\Application\Title.css" />
-    <Content Include="Content\CSS\Employee\Index.css" />
-    <Content Include="Content\CSS\Employee\Payroll.css" />
-    <Content Include="Content\CSS\Expense\Analysis.css" />
-    <Content Include="Content\CSS\Expense\Product.css" />
-    <Content Include="Content\CSS\Expense\Report.css" />
-    <Content Include="Content\CSS\Shared\Layout.css" />
-    <Content Include="Content\CSS\StandardWorkTime\Index.css" />
     <Content Include="Content\fontawesome-6.0-beta3-web\css\all.css" />
     <Content Include="Content\fontawesome-6.0-beta3-web\css\all.min.css" />
     <Content Include="Content\fontawesome-6.0-beta3-web\css\brands.css" />
@@ -1978,7 +1944,6 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="Scripts\Application\application.js" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.esm.js" />
@@ -2053,13 +2018,6 @@
     <Content Include="Content\fontawesome-6.0-beta3-web\webfonts\fa-v4compatibility.ttf" />
     <Content Include="Content\fontawesome-6.0-beta3-web\webfonts\fa-v4compatibility.woff2" />
     <None Include="Scripts\jquery-3.6.0.intellisense.js" />
-    <Content Include="Scripts\Contract\product.js" />
-    <Content Include="Scripts\Department\department.js" />
-    <Content Include="Scripts\Employee\employee.js" />
-    <Content Include="Scripts\Employee\payroll.js" />
-    <Content Include="Scripts\Employee\product-per-month.js" />
-    <Content Include="Scripts\Expense\expense.js" />
-    <Content Include="Scripts\Jobtitle\title.js" />
     <Content Include="Scripts\jquery-3.6.0.js" />
     <Content Include="Scripts\jquery-3.6.0.min.js" />
     <Content Include="Scripts\jquery-3.6.0.slim.js" />
@@ -2071,8 +2029,8 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\LogicProccess\Information\Index.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
-    <Content Include="Scripts\Plan\plan.js" />
     <Content Include="Scripts\plugin\bootstrap3-editable-1.5.1\bootstrap3-editable\css\bootstrap-editable.css" />
     <Content Include="Scripts\plugin\bootstrap3-editable-1.5.1\bootstrap3-editable\img\clear.png" />
     <Content Include="Scripts\plugin\bootstrap3-editable-1.5.1\bootstrap3-editable\img\loading.gif" />
@@ -3470,7 +3428,6 @@
     <Content Include="Scripts\plugin\select2-4.0.13\tests\vendor\qunit-1.23.1.css" />
     <Content Include="Scripts\plugin\select2-4.0.13\tests\vendor\qunit-1.23.1.js" />
     <Content Include="Scripts\Shared\layout.js" />
-    <Content Include="Scripts\StandardWorkTime\standard-work-time.js" />
     <Content Include="Scripts\Tools\GenRandom.js" />
     <Content Include="Scripts\Tools\GetValueOfCode.js" />
     <Content Include="Scripts\Tools\ProccessDate.js" />
@@ -3478,6 +3435,9 @@
     <Content Include="Scripts\Tools\ValidateInput.js" />
     <Content Include="Scripts\underscore.js" />
     <Content Include="Scripts\underscore.min.js" />
+    <Content Include="Store\Pics\ArticleImage\1.jpg" />
+    <Content Include="Store\Pics\ArticleImage\2.jpeg" />
+    <Content Include="Store\Pics\ArticleImage\3.jpeg" />
     <Content Include="Store\Pics\background-blur-building.jpg" />
     <Content Include="Store\Pics\background-blur-city.jpg" />
     <Content Include="Store\Pics\background-building.jpg" />
@@ -3488,8 +3448,12 @@
     <Content Include="Store\Pics\default-ava.jpg" />
     <Content Include="Store\Pics\HRM.png" />
     <Content Include="Store\Pics\icon-delete.png" />
+    <Content Include="Store\Pics\Logo\1.png" />
     <Content Include="Store\Pics\report-icon-png.png" />
     <Content Include="Store\Pics\report-icon-svg.svg" />
+    <Content Include="Store\Pics\ThumbnailImage\1.jpg" />
+    <Content Include="Store\Pics\ThumbnailImage\2.jpeg" />
+    <Content Include="Store\Pics\ThumbnailImage\3.jpeg" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -3501,22 +3465,9 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Employee\About.cshtml" />
-    <Content Include="Views\Employee\Contact.cshtml" />
     <Content Include="Views\Employee\Index.cshtml" />
-    <Content Include="Views\StandardWorkTime\Index.cshtml" />
     <Content Include="Scripts\plugin\bootstrap3-editable-1.5.1\LICENSE-MIT" />
     <Content Include="Scripts\plugin\bootstrap3-editable-1.5.1\README.md" />
-    <Content Include="Views\Plan\Index.cshtml" />
-    <Content Include="Views\Department\Index.cshtml" />
-    <Content Include="Views\Jobtitle\Index.cshtml" />
-    <Content Include="Views\Application\Index.cshtml" />
-    <Content Include="Views\Application\Show.cshtml" />
-    <Content Include="Views\Application\Title.cshtml" />
-    <Content Include="Views\Expense\Product.cshtml" />
-    <Content Include="Views\Expense\ConfigExpense.cshtml" />
-    <Content Include="Views\Expense\Report.cshtml" />
-    <Content Include="Views\Expense\Analysis.cshtml" />
     <Content Include="Scripts\plugin\select2-4.0.13\.editorconfig" />
     <Content Include="Scripts\plugin\select2-4.0.13\.github\CONTRIBUTING.md" />
     <Content Include="Scripts\plugin\select2-4.0.13\.github\FUNDING.yml" />
@@ -3889,17 +3840,13 @@
     <Content Include="Scripts\plugin\Highcharts-9.3.2\code\themes\skies.js.map" />
     <Content Include="Scripts\plugin\Highcharts-9.3.2\code\themes\sunset.js.map" />
     <Content Include="Scripts\plugin\Calendar-master\README.md" />
-    <Content Include="Views\Employee\ExtraTime.cshtml" />
     <Content Include="Scripts\plugin\contextMenu.js\bower.json" />
     <Content Include="Scripts\plugin\contextMenu.js\contextMenu.js.jquery.json" />
     <Content Include="Scripts\plugin\contextMenu.js\contextMenu.less" />
     <Content Include="Scripts\plugin\contextMenu.js\README.md" />
     <Content Include="Scripts\plugin\cool-custom-context-menu\README.markdown" />
-    <Content Include="Views\Contract\Product.cshtml" />
-    <Content Include="Views\Employee\ProductPerMonth.cshtml" />
-    <Content Include="Views\Contract\RestrictProduct.cshtml" />
-    <Content Include="Views\Employee\Payroll.cshtml" />
     <Content Include="Scripts\underscore.min.map" />
+    <Content Include="Views\Shared\_DetailLayout.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -3916,6 +3863,12 @@
       <Project>{74d90d67-b268-463a-a893-b5e564071ee6}</Project>
       <Name>DataAccess</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\CSS\Index.css" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

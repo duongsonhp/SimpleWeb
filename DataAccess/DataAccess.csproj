@@ -55,6 +55,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.Entity" />
     <Reference Include="System.Data.Entity.Design" />
@@ -66,6 +67,10 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
+    <Reference Include="Tools, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Debug\Tools.dll</HintPath>
+    </Reference>
     <Reference Include="Ubiety.Dns.Core, Version=4.2.2.0, Culture=neutral, PublicKeyToken=62d65a2efdde5827, processorArchitecture=MSIL">
       <HintPath>..\packages\Ubiety.Dns.Core.4.2.2\lib\netstandard2.0\Ubiety.Dns.Core.dll</HintPath>
     </Reference>
@@ -130,6 +135,11 @@
     <Compile Include="material_status.cs">
       <DependentUpon>HRM.tt</DependentUpon>
     </Compile>
+    <Compile Include="MySQLEntities\article.cs" />
+    <Compile Include="MySQLEntities\user_role.cs" />
+    <Compile Include="MySQLEntities\role.cs" />
+    <Compile Include="MySQLEntities\image_article.cs" />
+    <Compile Include="MySQLEntities\user.cs" />
     <Compile Include="n_absence.cs">
       <DependentUpon>HRM.tt</DependentUpon>
     </Compile>

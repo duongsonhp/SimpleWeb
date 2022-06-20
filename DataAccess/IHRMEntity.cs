@@ -11,22 +11,18 @@ namespace DataAccess
     {
         IList<T> Get();
 
-        IList<T> Get(Expression<Func<T, bool>> condition, Expression<Func<T, object>> sortField, int? page, int? pageSize, string sortMode);
+        IList<T> Get(string condition, List<KeyValuePair<string, bool>> sortFields, int? page, int? pageSize);
 
         T Get<T2>(T2 id) where T2 : class;
 
-        //List<T> Gets(string propertyName, object propertyValue);
+        IList<T> Get(string query);
 
         void Insert(T item);
 
-        void Insert(List<T> items);
+        void InsertAutoIncrement(T item);
 
         void Update(T item);
 
-        void Update(List<T> item);
-
         void Remove(T item);
-
-        void Remove(List<T> items);
     }
 }

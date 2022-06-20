@@ -66,15 +66,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ApplicationBll.cs" />
-    <Compile Include="Bll.cs" />
     <Compile Include="MergedEntity\Payroll.cs" />
     <Compile Include="MergedEntity\Product.cs" />
-    <Compile Include="PayrollBll.cs" />
-    <Compile Include="ContractBll.cs" />
-    <Compile Include="ContractProductBll.cs" />
-    <Compile Include="ExpenseBll.cs" />
-    <Compile Include="ExtraWorkTimeBll.cs" />
     <Compile Include="MergedEntity\ApplicationDepartmentJobtitle.cs" />
     <Compile Include="MergedEntity\Contract.cs" />
     <Compile Include="MergedEntity\Expense.cs" />
@@ -83,14 +76,10 @@
     <Compile Include="MergedEntity\Report.cs" />
     <Compile Include="MergedEntity\StandardWorkTimeEmployee.cs" />
     <Compile Include="MergedEntity\TitleRecruit.cs" />
-    <Compile Include="PlanBll.cs" />
-    <Compile Include="StandardWorkTimeBll.cs" />
     <Compile Include="ToolsBll\ToolGetByCode.cs" />
-    <Compile Include="DepartmentBll.cs" />
-    <Compile Include="EmployeeDll.cs" />
+    <Compile Include="ArticlesBll.cs" />
     <Compile Include="MergedEntity\EmployeeDepartTitltePosition.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TitleDll.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

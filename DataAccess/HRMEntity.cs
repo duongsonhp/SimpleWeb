@@ -6,38 +6,106 @@ using System.Threading.Tasks;
 using System.Linq.Expressions;
 using System.Data.Entity.Infrastructure;
 using System.Data.Entity;
+using Tools;
+//using System.Data.SqlClient;
+using System.Data;
+using MySql.Data.MySqlClient;
+using MySql.Data;
+using System.Dynamic;
+using System.ComponentModel.DataAnnotations;
+using System.Configuration;
 // using ReadWriteTextFile;
 
 namespace DataAccess
 {
     public class HRMEntity<T> : IHRMEntity<T> where T : class
     {
-        private readonly DbContext _context;
-        private DbSet<T> _entities;
-
-        public HRMEntity(DbContext context)
-        {
-            _context = context;
-            _entities = _context.Set<T>();
-        }
-
+        public static string configPath = @"D:\Users\duong\source\repos\SimpleWeb\DataAccess\Config.txt";
+        public static string connectionString = (string)ConfigurationManager.AppSettings["cnnstr"];
         /// <summary> Sơn 22/11/2020
         /// Lấy toàn bộ bản ghi
         /// </summary>
         /// <returns></returns>
         public IList<T> Get()
         {
-            //using (var context = new hrmEntities())
-            //{
-            // var listLogContent = new List<string>() { $"{DateTime.Now.ToString()}: type of T is {typeof(T).Name}" };
-            // var log = new ReadWrite($@"F:\NeedSaving\NeedSaving\do-an-ii\Code\FashionBrand\Logs\Log_{DateTime.Now.Day}.{DateTime.Now.Month}.{DateTime.Now.Year}.txt", true, listLogContent);
-            // log.WriteFile();
-            // return context.Set<T>().ToList();
-            //using (_context)
-            //{
-                return _entities.ToList();
-            //}
-            //}
+            var result = new List<T>();
+            //var config = new GetConfig(configPath, "connectionString");
+            //var connectionString = config.Get();
+            using (var connection = new MySqlConnection(connectionString))
+            {
+                var query = $"select * from {typeof(T).Name};";
+                var command = new MySqlCommand(query, connection);
+                command.CommandType = CommandType.Text;
+                using (var adapter = new MySqlDataAdapter(command))
+                {
+                    using (var dataTable = new DataTable())
+                    {
+                        adapter.Fill(dataTable);
+
+                        if (dataTable != null && dataTable.Rows.Count > 0)
+                        {
+                            var columns = dataTable.Columns.Cast<DataColumn>().ToList();
+                            var rows = dataTable.Rows.Cast<DataRow>().ToList();
+                            var headerNames = columns.Select(col => col.ColumnName).ToList();
+
+                            //// Find properties name or columns name
+                            //if (isFirstRowColumnsHeader)
+                            //{
+                            //for (var i = 0; i < headerNames.Count; i++)
+                            //{
+                            //    if (rows[0][i] != DBNull.Value && !string.IsNullOrEmpty(rows[0][i].ToString()))
+                            //        headerNames[i] = rows[0][i].ToString();
+                            //}
+
+                            //
+                            // remove first row because that is header
+                            // rows.RemoveAt(0);
+                            //}
+
+                            // Create dynamic or anonymous object for `T type
+                            if (typeof(T) == typeof(System.Dynamic.ExpandoObject) ||
+                                typeof(T) == typeof(System.Dynamic.DynamicObject) ||
+                                typeof(T) == typeof(System.Object))
+                            {
+                                var dynamicDt = new List<dynamic>();
+                                foreach (var row in rows)
+                                {
+                                    dynamic dyn = new ExpandoObject();
+                                    dynamicDt.Add(dyn);
+                                    for (var i = 0; i < columns.Count; i++)
+                                    {
+                                        var dic = (IDictionary<string, object>)dyn;
+                                        dic[headerNames[i]] = row[columns[i]];
+                                    }
+                                }
+                                return (dynamic)dynamicDt;
+                            }
+                            else // other types of `T
+                            {
+                                var properties = typeof(T).GetProperties();
+                                if (columns.Any() && properties.Any())
+                                {
+                                    foreach (var row in rows)
+                                    {
+                                        // var entity = new T();
+                                        var entity = (T)Activator.CreateInstance(typeof(T));
+                                        for (var i = 0; i < columns.Count; i++)
+                                        {
+                                            if (!row.IsNull(columns[i]))
+                                            {
+                                                typeof(T).GetProperty(headerNames[i])? // ? -> maybe the property by name `headerNames[i]` is not exist in entity then get null!
+                                                    .SetValue(entity, row[columns[i]] == DBNull.Value ? null : row[columns[i]]);
+                                            }
+                                        }
+                                        result.Add(entity);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            return result;
         }
 
         /// <summary> Sơn 22/11/2020
@@ -48,62 +116,159 @@ namespace DataAccess
         /// <param name="condition">Điều kiện</param>
         /// <param name="sortField">Trường sắp xếp</param>
         /// <returns></returns>
-        public IList<T> Get(Expression<Func<T, bool>> condition, Expression<Func<T, object>> sortField, int? page = 0, int? pageSize = 0, string sortMode = "asc")
+        public IList<T> Get(string condition, List<KeyValuePair<string, bool>> sortFields, int? page = 0, int? pageSize = 0)
         {
-            var result = this.Get().AsQueryable();
-            if (condition != null)
-            {
-                result = result.Where(condition);
-            }
 
-            if (sortField != null)
+            var modeSort = new Dictionary<bool, string>();
+            modeSort[true] = "ASC";
+            modeSort[false] = "DESC";
+            var sorts = sortFields.Select(s => $"{s.Key} {modeSort[s.Value]}").ToList();
+
+            var result = new List<T>();
+            //var config = new GetConfig(configPath, "connectionString");
+            //var connectionString = config.Get();
+            using (var connection = new MySqlConnection(connectionString))
             {
-                if (sortMode.ToLower() == "asc")
-                    result = result.OrderBy(sortField);
+                string query = "";
+                if(page == 0 || pageSize == 0)
+                {
+                    query = $"select * from {typeof(T).Name} where {condition} order by {String.Join(", ", sorts)};";
+                }
                 else
-                    result = result.OrderByDescending(sortField);
-            }
+                {
+                    query = $"select * from {typeof(T).Name} where {condition} order by {String.Join(", ", sorts)} offset {(page.Value - 1) * pageSize.Value} rows fetch next {pageSize.Value} rows only;";
+                }
+                var command = new MySqlCommand(query, connection);
+                command.CommandType = CommandType.Text;
+                using (var adapter = new MySqlDataAdapter(command))
+                {
+                    using (var dataTable = new DataTable())
+                    {
+                        adapter.Fill(dataTable);
 
-            if (page.HasValue == true && pageSize.HasValue == true && page != 0 && pageSize != 0)
-            {
-                result = result.Skip((page.Value - 1) * pageSize.Value).Take(pageSize.Value);
+                        if (dataTable != null && dataTable.Rows.Count > 0)
+                        {
+                            var columns = dataTable.Columns.Cast<DataColumn>().ToList();
+                            var rows = dataTable.Rows.Cast<DataRow>().ToList();
+                            var headerNames = columns.Select(col => col.ColumnName).ToList();
+
+                            // Create dynamic or anonymous object for `T type
+                            if (typeof(T) == typeof(System.Dynamic.ExpandoObject) ||
+                                typeof(T) == typeof(System.Dynamic.DynamicObject) ||
+                                typeof(T) == typeof(System.Object))
+                            {
+                                var dynamicDt = new List<dynamic>();
+                                foreach (var row in rows)
+                                {
+                                    dynamic dyn = new ExpandoObject();
+                                    dynamicDt.Add(dyn);
+                                    for (var i = 0; i < columns.Count; i++)
+                                    {
+                                        var dic = (IDictionary<string, object>)dyn;
+                                        dic[headerNames[i]] = row[columns[i]];
+                                    }
+                                }
+                                return (dynamic)dynamicDt;
+                            }
+                            else // other types of `T
+                            {
+                                var properties = typeof(T).GetProperties();
+                                if (columns.Any() && properties.Any())
+                                {
+                                    foreach (var row in rows)
+                                    {
+                                        // var entity = new T();
+                                        var entity = (T)Activator.CreateInstance(typeof(T));
+                                        for (var i = 0; i < columns.Count; i++)
+                                        {
+                                            if (!row.IsNull(columns[i]))
+                                            {
+                                                typeof(T).GetProperty(headerNames[i])? // ? -> maybe the property by name `headerNames[i]` is not exist in entity then get null!
+                                                    .SetValue(entity, row[columns[i]] == DBNull.Value ? null : row[columns[i]]);
+                                            }
+                                        }
+                                        result.Add(entity);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
             }
-            return result.ToList();
+            return result;
         }
 
-        public T Get(string propertyName, /*Type propertyType, */object propertyValue)
+        public T Get(string propertyName, object propertyValue)
         {
-            var result = this.Get().AsQueryable();
-            //using (var context = new hrmEntities())
-            //{
-            //using (_context)
-            //{
-                var entity = Expression.Parameter(typeof(T), "tupple");
-                var property = Expression.Property(entity, propertyName);
-                var value = Expression.Constant(propertyValue);
-                var expression = Expression.Equal(property, value);
-                var lambdaExpression = Expression.Lambda<Func<T, bool>>(expression, entity);
-                return result.Where(lambdaExpression).FirstOrDefault();
-            //}
-            //}
-        }
 
-        //public List<T> Gets(string propertyName, /*Type propertyType, */object propertyValue)
-        //{
-        //    var result = this.Get().AsQueryable();
-        //    //using (var context = new hrmEntities())
-        //    //{
-        //    //using (_context)
-        //    //{
-        //    var entity = Expression.Parameter(typeof(T), "tupple");
-        //    var property = Expression.Property(entity, propertyName);
-        //    var value = Expression.Constant(propertyValue);
-        //    var expression = Expression.Equal(property, value);
-        //    var lambdaExpression = Expression.Lambda<Func<T, bool>>(expression, entity);
-        //    return result.Where(lambdaExpression).ToList();
-        //    //}
-        //    //}
-        //}
+            //var result = new List<T>();
+            //var config = new GetConfig(configPath, "connectionString");
+            //var connectionString = config.Get();
+            using (var connection = new MySqlConnection(connectionString))
+            {
+                var query =
+                    $"select * from {typeof(T).Name} where {propertyName} = {propertyValue};";
+                var command = new MySqlCommand(query, connection);
+                command.CommandType = CommandType.Text;
+                using (var adapter = new MySqlDataAdapter(command))
+                {
+                    using (var dataTable = new DataTable())
+                    {
+                        adapter.Fill(dataTable);
+
+                        if (dataTable != null && dataTable.Rows.Count > 0)
+                        {
+                            var columns = dataTable.Columns.Cast<DataColumn>().ToList();
+                            var rows = dataTable.Rows.Cast<DataRow>().ToList();
+                            var headerNames = columns.Select(col => col.ColumnName).ToList();
+
+                            // Create dynamic or anonymous object for `T type
+                            if (typeof(T) == typeof(System.Dynamic.ExpandoObject) ||
+                                typeof(T) == typeof(System.Dynamic.DynamicObject) ||
+                                typeof(T) == typeof(System.Object))
+                            {
+                                var dynamicDt = new List<dynamic>();
+                                foreach (var row in rows)
+                                {
+                                    dynamic dyn = new ExpandoObject();
+                                    dynamicDt.Add(dyn);
+                                    for (var i = 0; i < columns.Count; i++)
+                                    {
+                                        var dic = (IDictionary<string, object>)dyn;
+                                        dic[headerNames[i]] = row[columns[i]];
+                                    }
+                                }
+                                return (dynamic)dynamicDt;
+                            }
+                            else // other types of `T
+                            {
+                                var properties = typeof(T).GetProperties();
+                                if (columns.Any() && properties.Any())
+                                {
+                                    var entity = (T)Activator.CreateInstance(typeof(T));
+                                    foreach (var row in rows)
+                                    {
+                                        // var entity = new T();
+                                        // var entity = (T)Activator.CreateInstance(typeof(T));
+                                        for (var i = 0; i < columns.Count; i++)
+                                        {
+                                            if (!row.IsNull(columns[i]))
+                                            {
+                                                typeof(T).GetProperty(headerNames[i])? // ? -> maybe the property by name `headerNames[i]` is not exist in entity then get null!
+                                                    .SetValue(entity, row[columns[i]] == DBNull.Value ? null : row[columns[i]]);
+                                            }
+                                        }
+                                        // result.Add(entity);
+                                    }
+                                    return entity;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            return (T)Activator.CreateInstance(typeof(T));
+        }
 
         /// <summary> Sơn 22/11/2020
         /// Lấy bản ghi có giá trị khóa PK = id
@@ -114,17 +279,155 @@ namespace DataAccess
         /// <returns></returns>
         public T Get<T2>(T2 id) where T2 : class
         {
-            var keyName = "";
-            //using (var context = new hrmEntities())
-            //{
-            //using (_context)
-            //{
-                var _context2 = ((IObjectContextAdapter)_context).ObjectContext;
-                var _dbSet = _context2.CreateObjectSet<T>();
-                keyName = _dbSet.EntitySet.ElementType.KeyMembers.Select(k => k.Name).FirstOrDefault();
-            //}
-            // }
-            return Get(keyName/*, typeof(T2)*/, id);
+
+            // Kiểm tra thực thể có mấy key
+            var instance = (T)Activator.CreateInstance(typeof(T));
+            var _properties = (typeof(T)).GetProperties().ToList();
+            var keys = _properties.Where(p => Attribute.IsDefined(p, typeof(KeyAttribute))).ToList();
+            if (keys.Count() == 1)
+            {
+                //var config = new GetConfig(configPath, "connectionString");
+                //var connectionString = config.Get();
+                using (var connection = new MySqlConnection(connectionString))
+                {
+                    //var val = $"{id}";
+                    //var val2 = $"'{id}'";
+                    var typeKey = keys[0].GetType();
+                    var val = keys[0].PropertyType.Name == "string" ? $"'{id}'" : $"{id}";
+
+                    var query =
+                        $"select * from {typeof(T).Name} where {keys[0].Name} = {val};";
+                    var command = new MySqlCommand(query, connection);
+                    command.CommandType = CommandType.Text;
+                    using (var adapter = new MySqlDataAdapter(command))
+                    {
+                        using (var dataTable = new DataTable())
+                        {
+                            adapter.Fill(dataTable);
+
+                            if (dataTable != null && dataTable.Rows.Count > 0)
+                            {
+                                var columns = dataTable.Columns.Cast<DataColumn>().ToList();
+                                var rows = dataTable.Rows.Cast<DataRow>().ToList();
+                                var headerNames = columns.Select(col => col.ColumnName).ToList();
+                                // Create dynamic or anonymous object for `T type
+                                if (typeof(T) == typeof(System.Dynamic.ExpandoObject) ||
+                                    typeof(T) == typeof(System.Dynamic.DynamicObject) ||
+                                    typeof(T) == typeof(System.Object))
+                                {
+                                    var dynamicDt = new List<dynamic>();
+                                    foreach (var row in rows)
+                                    {
+                                        dynamic dyn = new ExpandoObject();
+                                        dynamicDt.Add(dyn);
+                                        for (var i = 0; i < columns.Count; i++)
+                                        {
+                                            var dic = (IDictionary<string, object>)dyn;
+                                            dic[headerNames[i]] = row[columns[i]];
+                                        }
+                                    }
+                                    return (dynamic)dynamicDt;
+                                }
+                                else // other types of `T
+                                {
+                                    var properties = typeof(T).GetProperties();
+                                    if (columns.Any() && properties.Any())
+                                    {
+                                        var entity = (T)Activator.CreateInstance(typeof(T));
+                                        foreach (var row in rows)
+                                        {
+                                            // var entity = new T();
+                                            // var entity = (T)Activator.CreateInstance(typeof(T));
+                                            for (var i = 0; i < columns.Count; i++)
+                                            {
+                                                if (!row.IsNull(columns[i]))
+                                                {
+                                                    typeof(T).GetProperty(headerNames[i])? // ? -> maybe the property by name `headerNames[i]` is not exist in entity then get null!
+                                                        .SetValue(entity, row[columns[i]] == DBNull.Value ? null : row[columns[i]]);
+                                                }
+                                            }
+                                            // result.Add(entity);
+                                        }
+                                        return entity;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            return (T)Activator.CreateInstance(typeof(T));
+        }
+
+        public IList<T> Get(string query)
+        {
+
+            var result = new List<T>();
+            //var config = new GetConfig(configPath, "connectionString");
+            //var connectionString = config.Get();
+            using (var connection = new MySqlConnection(connectionString))
+            {
+                //var query =
+                //    $"select * from {typeof(T).Name} where {condition} sort by {String.Join(", ", sorts)} offset {(page.Value - 1) * pageSize.Value} rows fetch next {pageSize.Value} rows only;";
+                var command = new MySqlCommand(query, connection);
+                command.CommandType = CommandType.Text;
+                using (var adapter = new MySqlDataAdapter(command))
+                {
+                    using (var dataTable = new DataTable())
+                    {
+                        adapter.Fill(dataTable);
+
+                        if (dataTable != null && dataTable.Rows.Count > 0)
+                        {
+                            var columns = dataTable.Columns.Cast<DataColumn>().ToList();
+                            var rows = dataTable.Rows.Cast<DataRow>().ToList();
+                            var headerNames = columns.Select(col => col.ColumnName).ToList();
+
+                            // Create dynamic or anonymous object for `T type
+                            if (typeof(T) == typeof(System.Dynamic.ExpandoObject) ||
+                                typeof(T) == typeof(System.Dynamic.DynamicObject) ||
+                                typeof(T) == typeof(System.Object))
+                            {
+                                var dynamicDt = new List<dynamic>();
+                                foreach (var row in rows)
+                                {
+                                    dynamic dyn = new ExpandoObject();
+                                    dynamicDt.Add(dyn);
+                                    for (var i = 0; i < columns.Count; i++)
+                                    {
+                                        var dic = (IDictionary<string, object>)dyn;
+                                        dic[headerNames[i]] = row[columns[i]];
+                                    }
+                                }
+                                return (dynamic)dynamicDt;
+                            }
+                            else // other types of `T
+                            {
+                                var properties = typeof(T).GetProperties();
+                                if (columns.Any() && properties.Any())
+                                {
+                                    foreach (var row in rows)
+                                    {
+                                        // var entity = new T();
+                                        var entity = (T)Activator.CreateInstance(typeof(T));
+                                        for (var i = 0; i < columns.Count; i++)
+                                        {
+                                            if (!row.IsNull(columns[i]))
+                                            {
+                                                typeof(T).GetProperty(headerNames[i])? // ? -> maybe the property by name `headerNames[i]` is not exist in entity then get null!
+                                                    .SetValue(entity, row[columns[i]] == DBNull.Value ? null : row[columns[i]]);
+                                            }
+                                        }
+                                        result.Add(entity);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            return result;
         }
 
         /// <summary> Sơn 22/11/2020
@@ -133,36 +436,89 @@ namespace DataAccess
         /// <param name="item"></param>
         public void Insert(T item)
         {
-            //using (var context = new hrmEntities())
-            //{
-            // context.Set<T>().Add(item);
-            //using (_context)
-            //{
-                _entities.Add(item);
-                _context.SaveChanges();
-            //}
-            //}
+
+            var values = new List<string>();
+
+            var _properties = item.GetType().GetProperties().ToList();
+            // var keys = _properties.Where(p => Attribute.IsDefined(p, typeof(KeyAttribute))).ToList();
+
+            _properties.ForEach(delegate (System.Reflection.PropertyInfo p)
+            {
+                // var propertyName = p.Name;
+                var propertyValue = p.GetValue(item);
+                if (p.PropertyType.Name == "String")
+                    values.Add($"'{propertyValue}'");
+                else
+                    values.Add($"{propertyValue}");
+            });
+
+            var _values = $"({String.Join(", ", values)})";
+
+            //var config = new GetConfig(configPath, "connectionString");
+            //var connectionString = config.Get();
+            using (var connection = new MySqlConnection(connectionString))
+            {
+                var query =
+                    $"insert into {typeof(T).Name} values{_values};";
+                var command = new MySqlCommand(query, connection);
+                command.CommandType = CommandType.Text;
+
+                command.Connection.Open();
+                command.ExecuteNonQuery();
+            }
         }
 
-        /// <summary> Sơn 22/11/2020
-        /// Thêm bản ghi vào bảng
-        /// </summary>
-        /// <param name="item"></param>
-        public void Insert(List<T> items)
+        public void InsertAutoIncrement(T item)
         {
-            //using (var context = new hrmEntities())
-            //{
-            // context.Set<T>().Add(item);
-            //using (_context)
-            //{
 
-            foreach(var item in items)
+            var values = new List<string>();
+            var columns = new List<string>();
+
+            var _properties = item.GetType().GetProperties().ToList();
+            _properties = _properties.Where(p => Attribute.IsDefined(p, typeof(KeyAttribute)) == false).ToList();
+            // var keys = _properties.Where(p => Attribute.IsDefined(p, typeof(KeyAttribute))).ToList();
+
+            _properties.ForEach(delegate (System.Reflection.PropertyInfo p)
             {
-                _entities.Add(item);
+
+                columns.Add(p.Name);
+                // var propertyName = p.Name;
+                var propertyValue = p.GetValue(item);
+                if (p.PropertyType.Name == "String")
+                {
+                    values.Add($"'{propertyValue}'");
+                }
+                else
+                {
+                    if (p.PropertyType.Name != "DateTime")
+                    {
+                        values.Add($"{propertyValue}");
+                    }
+                    else
+                    {
+                        var _propertyValue = (DateTime)propertyValue;
+                        values.Add($"'{_propertyValue.Year}-{_propertyValue.Month}-{_propertyValue.Day} {_propertyValue.Hour}:{_propertyValue.Minute}:{_propertyValue.Second}'");
+                    }
+                    // .Add($"{propertyValue}");
+                }
+                    
+            });
+
+            var _values = $"({String.Join(", ", values)})";
+            var _columns = $"({String.Join(", ", columns)})";
+
+            //var config = new GetConfig(configPath, "connectionString");
+            //var connectionString = config.Get();
+            using (var connection = new MySqlConnection(connectionString))
+            {
+                var query =
+                    $"insert into {typeof(T).Name} {_columns} values{_values};";
+                var command = new MySqlCommand(query, connection);
+                command.CommandType = CommandType.Text;
+
+                command.Connection.Open();
+                command.ExecuteNonQuery();
             }
-            _context.SaveChanges();
-            //}
-            //}
         }
 
         /// <summary> Sơn 22/11/2020
@@ -171,23 +527,106 @@ namespace DataAccess
         /// <param name="item"></param>
         public void Update(T item)
         {
-            //using (var context = new hrmEntities())
-            //{
-            // context.Set<T>().Attach(item);
-            //using (_context)
-            //{
-                _context.SaveChanges();
-            //}
-            //}
+            var values = new List<string>();
+            var conditions = new List<string>();
+
+            var instance = (T)Activator.CreateInstance(typeof(T));
+            var _properties = (typeof(T)).GetProperties().ToList();
+            var keys = _properties.Where(p => Attribute.IsDefined(p, typeof(KeyAttribute)) == true).ToList();
+            var notKeys = _properties.Where(p => Attribute.IsDefined(p, typeof(KeyAttribute)) == false).ToList();
+
+            notKeys.ForEach(delegate (System.Reflection.PropertyInfo p)
+            {
+                var propertyName = p.Name;
+                var propertyValue = p.GetValue(item);
+                if (p.PropertyType.Name == "String")
+                {
+                    if(propertyValue != null && String.IsNullOrWhiteSpace((string)propertyValue) == false)
+                        values.Add($"{propertyName} = '{propertyValue}'");
+                }
+                else
+                {
+                    if (propertyValue != null)
+                    {
+                        if(p.PropertyType.Name != "DateTime")
+                        {
+                            values.Add($"{propertyName} = {propertyValue}");
+                        }
+                        else
+                        {
+                            var _propertyValue = (DateTime)propertyValue;
+                            values.Add($"{propertyName} = '{_propertyValue.Year}-{_propertyValue.Month}-{_propertyValue.Day} {_propertyValue.Hour}:{_propertyValue.Minute}:{_propertyValue.Second}'");
+                        }
+                    }    
+                }
+            });
+
+            keys.ForEach(delegate (System.Reflection.PropertyInfo p)
+            {
+                var propertyName = p.Name;
+                var propertyValue = p.GetValue(item);
+                if (p.PropertyType.Name == "String")
+                    conditions.Add($"{propertyName} = '{propertyValue}'");
+                else
+                    conditions.Add($"{propertyName} = {propertyValue}");
+            });
+
+            var _values = $"{String.Join(", ", values)}";
+            var _conditions = $"{String.Join(" and ", conditions)}";
+
+            //var config = new GetConfig(configPath, "connectionString");
+            //var connectionString = config.Get();
+            using (var connection = new MySqlConnection(connectionString))
+            {
+                var query =
+                    $"update {typeof(T).Name} set {_values} where {_conditions};";
+                var command = new MySqlCommand(query, connection);
+                command.CommandType = CommandType.Text;
+
+                command.Connection.Open();
+                command.ExecuteNonQuery();
+            }
         }
 
         /// <summary> Sơn 22/11/2020
         /// Cập nhật bản ghi
         /// </summary>
         /// <param name="item"></param>
-        public void Update(List<T> item)
+        public void Update(T item, string condition)
         {
-            _context.SaveChanges();
+            var values = new List<string>();
+            var conditions = new List<string>();
+
+            var instance = (T)Activator.CreateInstance(typeof(T));
+            var _properties = (typeof(T)).GetProperties().ToList();
+            var keys = _properties.Where(p => Attribute.IsDefined(p, typeof(KeyAttribute)) == true).ToList();
+            var notKeys = _properties.Where(p => Attribute.IsDefined(p, typeof(KeyAttribute)) == false).ToList();
+
+            notKeys.ForEach(delegate (System.Reflection.PropertyInfo p)
+            {
+                var propertyName = p.Name;
+                var propertyValue = p.GetValue(item);
+                if (p.PropertyType.Name == "string")
+                    values.Add($"{propertyName} = '{propertyValue}'");
+                else
+                    values.Add($"{propertyName} = {propertyValue}");
+            });
+
+            var _values = $"{String.Join(", ", values)}";
+            // var _conditions = $"{String.Join(" and ", conditions)}";
+
+            //var config = new GetConfig(configPath, "connectionString");
+            //var connectionString = config.Get();
+            using (var connection = new MySqlConnection(connectionString))
+            {
+                var query =
+                    $"update {typeof(T).Name} set {_values} where {condition};";
+                var command = new MySqlCommand(query, connection);
+                command.CommandType = CommandType.Text;
+
+                command.Connection.Open();
+                command.ExecuteNonQuery();
+            }
         }
 
         /// <summary> Sơn 22/11/2020
@@ -196,36 +635,54 @@ namespace DataAccess
         /// <param name="item"></param>
         public void Remove(T item)
         {
-            //using (var context = new hrmEntities())
-            //{
-            //context.Set<T>().Remove(item);
-            //using (_context)
-            //{
-                _entities.Remove(item);
-                _context.SaveChanges();
-            //}
-            //}
+            var conditions = new List<string>();
+
+            var instance = (T)Activator.CreateInstance(typeof(T));
+            var _properties = (typeof(T)).GetProperties().ToList();
+            var keys = _properties.Where(p => Attribute.IsDefined(p, typeof(KeyAttribute)) == true).ToList();
+            var notKeys = _properties.Where(p => Attribute.IsDefined(p, typeof(KeyAttribute)) == false).ToList();
+
+            keys.ForEach(delegate (System.Reflection.PropertyInfo p)
+            {
+                var propertyName = p.Name;
+                var propertyValue = p.GetValue(item);
+                if (p.PropertyType.Name == "string")
+                    conditions.Add($"{propertyName} = '{propertyValue}'");
+                else
+                    conditions.Add($"{propertyName} = {propertyValue}");
+            });
+
+            // var _values = $"{String.Join(", ", values)}";
+            var _conditions = $"{String.Join(" and ", conditions)}";
+
+            //var config = new GetConfig(configPath, "connectionString");
+            //var connectionString = config.Get();
+            using (var connection = new MySqlConnection(connectionString))
+            {
+                var query =
+                    $"delete from {typeof(T).Name} where {_conditions};";
+                var command = new MySqlCommand(query, connection);
+                command.CommandType = CommandType.Text;
+
+                command.Connection.Open();
+                command.ExecuteNonQuery();
+            }
         }
 
-        /// <summary> Sơn 22/11/2020
-        /// Xóa bản ghi
-        /// </summary>
-        /// <param name="item"></param>
-        public void Remove(List<T> items)
+        public void Remove(string condition)
         {
-            //using (var context = new hrmEntities())
-            //{
-            //context.Set<T>().Remove(item);
-            //using (_context)
-            //{
-
-            foreach (var item in items)
+            //var config = new GetConfig(configPath, "connectionString");
+            //var connectionString = config.Get();
+            using (var connection = new MySqlConnection(connectionString))
             {
-                _entities.Remove(item);
+                var query =
+                    $"delete from {typeof(T).Name} where {condition};";
+                var command = new MySqlCommand(query, connection);
+                command.CommandType = CommandType.Text;
+
+                command.Connection.Open();
+                command.ExecuteNonQuery();
             }
-            _context.SaveChanges();
-            //}
-            //}
         }
     }
 }
